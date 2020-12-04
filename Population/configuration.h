@@ -2,6 +2,7 @@
 
 struct BoxDimension
 {
+    BoxDimension() = default;
     BoxDimension(double x_dim, double y_dim) : x(x_dim), y(y_dim) {}
     double x, y;
 };
