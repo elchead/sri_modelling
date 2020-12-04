@@ -14,7 +14,8 @@ class Population
 {
 public:
     Population(size_t size);
-    void nextTimestep(); // outputs SIR data
+    void nextTimestep();    // outputs SIR data
+    void startSimulation(); // timestep loop
 
 private:
     std::vector<Person> persons_;

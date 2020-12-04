@@ -16,3 +16,5 @@ And before merging, we need to change things
    ```
    cmake --build .
    ```
+
+Please be aware that with the current configuration, cmake needs to be executed after each newly added file.

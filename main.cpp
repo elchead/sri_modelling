@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Population/population.h"
+#include "population.h"
 
 int main(int argc, char **argv)
 {
@@ -9,6 +9,6 @@ int main(int argc, char **argv)
         std::cout << argv[i] << "\n";
 
     auto p = Population(3);
-    p.nextTimestep();
+    p.startSimulation();
     return 0;
 }
