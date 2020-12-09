@@ -8,7 +8,7 @@ double Random::get_double() const
     return unif_gen(gen);
 }
 
-Population::Population(size_t size) : random_(), config_()
+Population::Population(size_t size) : random_(), config_(), S_(size), I_(size), R_(size)
 {
     config_.dimensions.x = 2.;
     config_.dimensions.y = 3.;
