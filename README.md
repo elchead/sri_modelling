@@ -3,6 +3,10 @@ This is our project
 And before merging, we need to change things
 
 # Installation
+0. Install Eigen
+   ```
+   sudo apt install libeigen3-dev
+   ```
 1. Create build directory
     ```
     mkdir build

@@ -16,6 +16,7 @@ public:
     Position move(double dx, double dy, bool change_position = true);
     Position get_position() const;
     std::string get_state_string() const;
+    void set_state(State s) { state = s; }
     State state;
 
 private:

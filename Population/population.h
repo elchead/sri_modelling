@@ -4,12 +4,13 @@
 #include <random>
 #include <chrono>
 #include <Eigen/Core>
-#include <range/v3/view/filter.hpp>
+#include <cmath>
+//#include <ranges>
 
 class Random
 {
 public:
-    double get_double() const;
+    double get_double(double min=0,double max=1) const;
 };
 
 class Population
@@ -20,8 +21,10 @@ public:
     void startSimulation(); // timestep loop
 
 private:
-    std::vector<Person> persons_;
+    void updateStatuses();
+    void move();
 
+    std::vector<Person> persons_;
     Random random_;
     Configuration config_;
     Eigen::VectorXf S_;
