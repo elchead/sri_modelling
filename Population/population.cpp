@@ -39,6 +39,8 @@ void Population::startSimulation()
 
 void Population::nextTimestep()
 {
+    // get s group
+    // get i group
     for (auto &person : persons_)
     {
         bool valid = false;
@@ -51,6 +53,9 @@ void Population::nextTimestep()
             valid = config_.dimensions.isInside(new_pos);
         }
         person.move(rnd_x, rnd_y, true);
+        if(person.state == State::Susceptible){
+
+        }
         std::cout << person << std::endl;
     }
 }

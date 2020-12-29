@@ -1,6 +1,6 @@
 #include "person.h"
 
-Person::Person(Position p, double step_size) : position_(p), step_size_(step_size), state_(State::Susceptible)
+Person::Person(Position p, double step_size) : position_(p), step_size_(step_size), state(State::Susceptible)
 {
 }
 
@@ -11,7 +11,7 @@ Position Person::get_position() const
 
 std::string Person::get_state_string() const
 {
-    switch (state_)
+    switch (state)
     {
     case State::Infectious:
         return "infectious";

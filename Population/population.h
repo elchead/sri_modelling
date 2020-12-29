@@ -4,6 +4,7 @@
 #include <random>
 #include <chrono>
 #include <Eigen/Core>
+#include <range/v3/view/filter.hpp>
 
 class Random
 {
