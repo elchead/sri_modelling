@@ -16,7 +16,7 @@ public:
 class Population
 {
 public:
-    Population(size_t size);
+    Population(Configuration config);
     void nextTimestep();    // outputs SIR data
     void startSimulation(); // timestep loop
 

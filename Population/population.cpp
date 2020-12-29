@@ -8,16 +8,16 @@ double Random::get_double(double min, double max) const
     return unif_gen(gen);
 }
 
-Population::Population(size_t size) : random_(), config_(), S_(size), I_(size), R_(size)
+Population::Population(Configuration config) : random_(), config_(config), S_(config.population_size), I_(config.population_size), R_(config.population_size)
 {
-    config_.dimensions.x = 1.;
-    config_.dimensions.y = 1.;
-    config_.population_size = size;
-    config_.nbr_timesteps = 10;
-    config_.infection_probability = 1.;
-    config_.infection_radius = .5;
+    // config_.dimensions.x = 1.;
+    // config_.dimensions.y = 1.;
+    // config_.population_size = size;
+    // config_.nbr_timesteps = 10;
+    // config_.infection_probability = 1.;
+    // config_.infection_radius = .5;
 
-    for (size_t i = 0; i < size; ++i)
+    for (size_t i = 0; i < config.population_size; ++i)
     {
         double rnd_x = config_.dimensions.x * random_.get_double();
         double rnd_y = config_.dimensions.y * random_.get_double();
