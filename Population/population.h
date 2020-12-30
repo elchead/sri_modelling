@@ -7,6 +7,7 @@
 #include <Eigen/Core>
 #include <cmath>
 #include "csv-export.h"
+#include <fstream>
 //#include <ranges>
 
 class Random
