@@ -1,5 +1,11 @@
 #include "person.h"
 
+std::ostream& operator<<(std::ostream& os, const Person& p){
+    const auto pos = p.get_position();
+    os << static_cast<int>(p.state) << "," << pos.x << "," << pos.y << "\n";
+    return os;
+}
+
 Person::Person(Position p, double step_size) : position_(p), step_size_(step_size), state(State::Susceptible)
 {
 }
@@ -34,10 +40,10 @@ Position Person::move(double dx, double dy, bool change_position)
     return new_pos;
 }
 
-std::ostream &operator<<(std::ostream &output, const Person &p)
-{
-    const auto pos = p.get_position();
-    output
-        << "Person at : (" << pos.x << " " << pos.y << ") is currently " << p.get_state_string();
-    return output;
-}
+// std::ostream &operator<<(std::ostream &output, const Person &p)
+// {
+//     const auto pos = p.get_position();
+//     output
+//         << "Person at : (" << pos.x << " " << pos.y << ") is currently " << p.get_state_string();
+//     return output;
+// }

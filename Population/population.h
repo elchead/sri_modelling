@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "person.h"
 #include "configuration.h"
@@ -5,6 +6,7 @@
 #include <chrono>
 #include <Eigen/Core>
 #include <cmath>
+#include "csv-export.h"
 //#include <ranges>
 
 class Random
@@ -19,6 +21,7 @@ public:
     Population(Configuration config);
     void nextTimestep();    // outputs SIR data
     void startSimulation(); // timestep loop
+    const std::vector<Person>& get_persons() const { return persons_; }
 
 private:
     void updateStatuses();

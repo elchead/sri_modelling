@@ -31,12 +31,14 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
 
 void Population::startSimulation()
 {
+    auto csv = CSV("data.csv");
     for (size_t i = 1; i < config_.nbr_timesteps + 1; ++i)
     {
         std::cout << "Output: "
                   << i << std::endl;
         nextTimestep();
         std::cout << std::endl;
+        csv.exporter(persons_);
     }
 }
 

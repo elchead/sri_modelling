@@ -1,3 +1,4 @@
+#pragma once
 #include <array>
 #include "enums.h"
 #include <string>
@@ -18,6 +19,7 @@ public:
     std::string get_state_string() const;
     void set_state(State s) { state = s; }
     State state;
+    friend std::ostream& operator<<(std::ostream& os, const Person& p);
 
 private:
     Position position_;
