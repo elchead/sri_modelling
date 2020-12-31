@@ -15,6 +15,7 @@ struct Configuration
     size_t population_size;
     size_t nbr_timesteps;
     BoxDimension dimensions;
+    double moving_speed;
     double infection_probability;
     double infection_radius;
 };

@@ -1,8 +1,9 @@
 {
-    "population_size" : 5,
-    "nbr_timesteps" : 10,
+    "population_size" : 20,
+    "nbr_timesteps" : 50,
     "dimension_x" : 5.0,
     "dimension_y" : 3.0,
+    "moving_speed" : 0.1,
     "infection_probability" : 0.5,
     "infection_radius" : 0.5
 }

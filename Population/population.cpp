@@ -10,19 +10,12 @@ double Random::get_double(double min, double max) const
 
 Population::Population(Configuration config) : random_(), config_(config), S_(config.population_size), I_(config.population_size), R_(config.population_size)
 {
-    // config_.dimensions.x = 1.;
-    // config_.dimensions.y = 1.;
-    // config_.population_size = size;
-    // config_.nbr_timesteps = 10;
-    // config_.infection_probability = 1.;
-    // config_.infection_radius = .5;
-
     for (size_t i = 0; i < config.population_size; ++i)
     {
         double rnd_x = config_.dimensions.x * random_.get_double();
         double rnd_y = config_.dimensions.y * random_.get_double();
         const auto pos = Position(rnd_x, rnd_y);
-        persons_.emplace_back(Person(pos));
+        persons_.emplace_back(pos);
     }
     auto p = Person(Position(0,0));
     p.set_state(State::Infectious);
@@ -81,8 +74,10 @@ void Population::move() {
         double rnd_x, rnd_y;
         while (!valid)
         {
-            rnd_x = random_.get_double();
-            rnd_y = random_.get_double();
+            const auto max_x = config_.moving_speed * config_.dimensions.x;
+            const auto max_y = config_.moving_speed * config_.dimensions.y;
+            rnd_x = random_.get_double(-max_x, max_x);
+            rnd_y = random_.get_double(-max_y,max_y);
             const auto new_pos = person.move(rnd_x, rnd_y, false);
             valid = config_.dimensions.isInside(new_pos);
         }
