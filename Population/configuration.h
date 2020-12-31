@@ -14,6 +14,8 @@ struct Configuration
     Configuration() = default;
     size_t population_size;
     size_t nbr_timesteps;
+    double dt;
+    double infection_duration;
     BoxDimension dimensions;
     double moving_speed;
     double infection_probability;

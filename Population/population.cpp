@@ -55,16 +55,25 @@ double getDistSquare(const Position& a,const Position& b){
 }
 
 void Population::updateStatuses() {
+    // get new infected people
     auto s_group = getGroup(State::Susceptible,persons_);
     auto i_group = getGroup(State::Infectious,persons_);
-    for(auto s_person: s_group){
-       for(const auto i_person: i_group){
+    for(auto* s_person: s_group){
+       for(const auto* i_person: i_group){
            const auto dist = getDistSquare(s_person->get_position(), i_person->get_position());
            if (dist < pow(config_.infection_radius,2) && random_.get_double() < config_.infection_probability) {
                    s_person->set_state(State::Infectious);
+                   s_person->infection_start_time = time_;
                }
        }
     }
+
+    // get newly recovered people
+   for(auto* i_person: i_group){
+       if(time_ - i_person->infection_start_time
+           > config_.infection_duration)
+           i_person->set_state(State::Recovered);
+   }
 }
 
 void Population::move() {
@@ -90,4 +99,5 @@ void Population::nextTimestep()
 {
     updateStatuses();
     move();
+    time_ += config_.dt;
 }

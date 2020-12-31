@@ -20,6 +20,7 @@ public:
     void set_state(State s) { state = s; }
     State state;
     friend std::ostream& operator<<(std::ostream& os, const Person& p);
+    double infection_start_time;
 
 private:
     Position position_;

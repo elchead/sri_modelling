@@ -31,6 +31,7 @@ private:
     std::vector<Person> persons_;
     Random random_;
     Configuration config_;
+    double time_;
     Eigen::VectorXf S_;
     Eigen::VectorXf I_;
     Eigen::VectorXf R_;
