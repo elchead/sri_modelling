@@ -3803,65 +3803,7 @@
 		boundaryForceC = 0.1
 		randomSmallJerk = 0.001
 
-		function addParticlesToBoundary(graphN ,boundaryN, particleN) {
-			boundaryData[boundaryN]['particleNumber'] = particleN
-			totalparticles = boundaryData[boundaryN]['particleNumber']
-			initiallyInfectedN = boundaryData[boundaryN]['fractionInfectedInitially']
-
-			bdrange = boundaryData[boundaryN]['range']
-			bdexclusionWX = (bdrange[1] - bdrange[0])/20
-			bdexclusionRX = (bdrange[1] - bdrange[0]) - (2*bdexclusionWX)
-			bdexclusionSX = bdrange[0] + bdexclusionWX
-
-			bdexclusionWY = (bdrange[3] - bdrange[2])/20
-			bdexclusionRY = (bdrange[3] - bdrange[2]) - (2*bdexclusionWY)
-			bdexclusionSY = bdrange[2] + bdexclusionWY
-
-			// function initParticles() {
-			// 	// TODO how boundaryN
-			// 	particleData[boundaryN][particleID] = {}
-			// 	for (particleIndex = 0; particleIndex < particleData[boundaryN].length; particleIndex++) {				
-			// 		// particleData[boundaryN][particleID].infectionAnimation = false
-			// 		// particleData[boundaryN][particleID].infectionAnimationFrame = 0
-			// 		// particleData[boundaryN][particleID].daysSinceInfection = 0
-
-			// 		// particleData[boundaryN][particleID].quarantined = false
-			// 		particleData[boundaryN][particleID].showsSymptoms = true
-
-			// 		particleData[boundaryN][particleID].visitingCentralLocation = false
-			// 		particleData[boundaryN][particleID].visitingCLFrame = 0
-
-			// 		particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
-			// 		if (Math.random() < simulationParameters.probabilityOfNoSymptoms && particleData[boundaryN][particleID].state == 'infected') {
-			// 			particleData[boundaryN][particleID].showsSymptoms = false
-			// 			particleData[boundaryN][particleID].color = stateColors['noSymptoms']
-			// 		}
-
-
-			// 		// particleData[boundaryN][particleID].moveAnimation = false
-			// 		// particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
-			// 		// particleData[boundaryN][particleID].moveAnimationTo = boundaryData[boundaryN]['center']
-			// 		// particleData[boundaryN][particleID].moveAnimationFrame = 0
-			// 		// particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
-					
-
-			// 		options.x = particleData[boundaryN][particleID].x
-			// 		options.y = particleData[boundaryN][particleID].y
-			// 		options.pointcolor = 'hsla(' + particleData[boundaryN][particleID].color + ',1)'
-			// 		addPoint(graphN, 'particle@' + particleID, options)
-
-			// 		options = {}
-			// 		options.circlecolor = 'hsla(190, 0%, 0%, 0)'
-			// 		options.stroke = 'hsla(' + particleData[boundaryN][particleID].color + ',0)'
-			// 		options.x = particleData[boundaryN][particleID].x
-			// 		options.y = particleData[boundaryN][particleID].y
-			// 		options.radius = 0
-			// 		options.strokewidth = 2
-			// 		addCircle(graphN, 'particleCircle@' + particleID, options)
-			// 		particleID = particleID + 1
-			// 	}
-			// }
-			function updateCsvPosState(statuses,pos_x,pos_y){
+		function updateCsvPosState(boundaryN,graphN,statuses,pos_x,pos_y){
 				var totalparticles = statuses.length
 
 				for (particleIndex = 0; particleIndex < statuses.length; particleIndex++) {
@@ -3934,6 +3876,7 @@
 					particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
 					
 
+					// init part
 					options.x = particleData[boundaryN][particleID].x
 					options.y = particleData[boundaryN][particleID].y
 					options.pointcolor = 'hsla(' + particleData[boundaryN][particleID].color + ',1)'
@@ -3950,8 +3893,9 @@
 					particleID = particleID + 1
 				}
 				}
-			
-			function readCsv(timestep) {
+
+					
+		function readCsv(timestep,graphN ,boundaryN) {
 				$(document).ready(function() {
 
 				$.ajax({
@@ -3966,112 +3910,59 @@
 
 				});
 
-				})};
+				})
 
 				function processData(allText) {
 
-				var allTextLines = allText.split(/\r\n|\n/);
+					var allTextLines = allText.split(/\r\n|\n/);
 
-				var headers = allTextLines[0].split(',');
+					var headers = allTextLines[0].split(',');
 
-				var lines = [];
-				var statuses = [];
-				var pos_x = [];
-				var pos_y = [];
+					var lines = [];
+					var statuses = [];
+					var pos_x = [];
+					var pos_y = [];
 
-				for (var i=1; i<allTextLines.length; i++) {
+					for (var i=1; i<allTextLines.length; i++) {
 
-				var data = allTextLines[i].split(',');
+					var data = allTextLines[i].split(',');
 
-				if (data.length == headers.length) {
+					if (data.length == headers.length) {
 
-				var tarr = [];
+						var tarr = [];
 
-				for (var j=0; j<headers.length; j++) {
+						for (var j=0; j<headers.length; j++) {
 
-				tarr.push(headers[j]+":"+data[j]);
-				
-			}
-			
-				statuses.push(parseInt(data[0]));
-				pos_x.push(parseFloat(data[1]));
-				pos_y.push(parseFloat(data[2]));
-				lines.push(tarr);
+						tarr.push(headers[j]+":"+data[j]);
+						
+						}
+					
+						statuses.push(parseInt(data[0]));
+						pos_x.push(parseFloat(data[1]));
+						pos_y.push(parseFloat(data[2]));
+						lines.push(tarr);
+						}
+					}
+					updateCsvPosState(boundaryN,graphN,statuses,pos_x,pos_y);
 				}
-				updateCsvPosState(statuses,pos_x,pos_y);
-				}
-			}
+			};
 
-			readCsv(1);
+		function addParticlesToBoundary(graphN ,boundaryN, particleN) {
+			boundaryData[boundaryN]['particleNumber'] = particleN
+			totalparticles = boundaryData[boundaryN]['particleNumber']
+			initiallyInfectedN = boundaryData[boundaryN]['fractionInfectedInitially']
 
-			// for (particleIndex = 0; particleIndex < totalparticles; particleIndex++) {
-			// 	options = {}
-			// 	options.pointsize = simulationParameters.particleSize
+			bdrange = boundaryData[boundaryN]['range']
+			bdexclusionWX = (bdrange[1] - bdrange[0])/20
+			bdexclusionRX = (bdrange[1] - bdrange[0]) - (2*bdexclusionWX)
+			bdexclusionSX = bdrange[0] + bdexclusionWX
 
-			// 	particleData[boundaryN][particleID] = {}
+			bdexclusionWY = (bdrange[3] - bdrange[2])/20
+			bdexclusionRY = (bdrange[3] - bdrange[2]) - (2*bdexclusionWY)
+			bdexclusionSY = bdrange[2] + bdexclusionWY
 
-			// 	particleInfectionCount[graphN][particleID] = {}
-			// 	particleInfectionCount[graphN][particleID].infectionC = 0
+			readCsv(1,graphN ,boundaryN);
 
-			// 	particleData[boundaryN][particleID].socialDistancingObedience = 1
-
-			// 	particleData[boundaryN][particleID].vx = 2*(Math.random() - 0.5)*initialParticleV
-			// 	particleData[boundaryN][particleID].vy = 2*(Math.random() - 0.5)*initialParticleV
-
-			// 	particleData[boundaryN][particleID].ax = 0
-			// 	particleData[boundaryN][particleID].ay = 0
-
-			// 	particleData[boundaryN][particleID].x = bdexclusionSX + (Math.random()*bdexclusionRX)
-			// 	particleData[boundaryN][particleID].y = bdexclusionSY + (Math.random()*bdexclusionRY)
-			// 	if (particleIndex < parseInt(totalparticles*initiallyInfectedN)) {
-			// 		particleData[boundaryN][particleID].state = 'infected'
-			// 		particleCounts[graphN]['infected'] = particleCounts[graphN]['infected'] + 1
-
-			// 	}
-			// 	else {
-			// 		particleData[boundaryN][particleID].state = 'susceptible'
-			// 		particleCounts[graphN]['susceptible'] = particleCounts[graphN]['susceptible'] + 1
-			// 	}
-				
-			// 	particleData[boundaryN][particleID].infectionAnimation = false
-			// 	particleData[boundaryN][particleID].infectionAnimationFrame = 0
-			// 	particleData[boundaryN][particleID].daysSinceInfection = 0
-
-			// 	particleData[boundaryN][particleID].quarantined = false
-			// 	particleData[boundaryN][particleID].showsSymptoms = true
-
-			// 	particleData[boundaryN][particleID].visitingCentralLocation = false
-			// 	particleData[boundaryN][particleID].visitingCLFrame = 0
-
-			// 	particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
-			// 	if (Math.random() < simulationParameters.probabilityOfNoSymptoms && particleData[boundaryN][particleID].state == 'infected') {
-			// 		particleData[boundaryN][particleID].showsSymptoms = false
-			// 		particleData[boundaryN][particleID].color = stateColors['noSymptoms']
-			// 	}
-
-
-			// 	particleData[boundaryN][particleID].moveAnimation = false
-			// 	particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
-			// 	particleData[boundaryN][particleID].moveAnimationTo = boundaryData[boundaryN]['center']
-			// 	particleData[boundaryN][particleID].moveAnimationFrame = 0
-			// 	particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
-				
-
-			// 	options.x = particleData[boundaryN][particleID].x
-			// 	options.y = particleData[boundaryN][particleID].y
-			// 	options.pointcolor = 'hsla(' + particleData[boundaryN][particleID].color + ',1)'
-			// 	addPoint(graphN, 'particle@' + particleID, options)
-
-			// 	options = {}
-			// 	options.circlecolor = 'hsla(190, 0%, 0%, 0)'
-			// 	options.stroke = 'hsla(' + particleData[boundaryN][particleID].color + ',0)'
-			// 	options.x = particleData[boundaryN][particleID].x
-			// 	options.y = particleData[boundaryN][particleID].y
-			// 	options.radius = 0
-			// 	options.strokewidth = 2
-			// 	addCircle(graphN, 'particleCircle@' + particleID, options)
-			// 	particleID = particleID + 1
-			// }
 		}
 
 		function removeParticlesFromBoundary(graphN ,boundaryN) {
@@ -4534,9 +4425,9 @@
 
 		setUpSimpleCaseGraph()
 
-		setUpCommunitiesCaseGraph()
+		// setUpCommunitiesCaseGraph()
 
-		setUpCommunitiesQuarantineCaseGraph()
+		// setUpCommunitiesQuarantineCaseGraph()
 
 		currentSim = 'simpleCase'
 		currentSimG = 'simpleCaseGraphG'
@@ -4707,6 +4598,7 @@
 		returnToCLFactor = 1 - fractionOfDurationToReachCL
 
 		function moveParticles(ofBoundary) {
+			var graphN = 'simpleCaseGraphG';
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
 				if (partDB[particleIndex].moveAnimation) {
