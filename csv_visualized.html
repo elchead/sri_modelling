@@ -3812,13 +3812,14 @@
 
 				var totalparticles = statuses.length
 
-				for (particleIndex = 0; particleIndex < statuses.length; particleIndex++) {
+				for (particleID = 1; particleID < statuses.length+1; particleID++) {
 					options = {}
 					options.pointsize = simulationParameters.particleSize
 
-					particleData[boundaryN][particleID] = {}
-
-					particleInfectionCount[graphN][particleID] = {}
+					if(updateCsvPosState.counter===1){
+						particleData[boundaryN][particleID] = {}
+						particleInfectionCount[graphN][particleID] = {}
+					}
 					particleInfectionCount[graphN][particleID].infectionC = 0
 
 					particleData[boundaryN][particleID].socialDistancingObedience = 1
@@ -3829,10 +3830,10 @@
 					particleData[boundaryN][particleID].ax = 0
 					particleData[boundaryN][particleID].ay = 0
 
-					particleData[boundaryN][particleID].x = bdexclusionSX + (pos_x[particleIndex]*bdexclusionRX);////bdexclusionSX + (Math.random())
-					particleData[boundaryN][particleID].y = bdexclusionSY + (pos_y[particleIndex]*bdexclusionRY);
+					particleData[boundaryN][particleID].x = bdexclusionSX + (pos_x[particleID-1]*bdexclusionRX);////bdexclusionSX + (Math.random())
+					particleData[boundaryN][particleID].y = bdexclusionSY + (pos_y[particleID-1]*bdexclusionRY);
 					var state_str = '';
-					switch(statuses[particleIndex]) {
+					switch(statuses[particleID-1]) {
 						case 0:
 							state_str = 'susceptible';
 							particleCounts[graphN]['susceptible'] = particleCounts[graphN]['susceptible'] + 1;
@@ -3875,15 +3876,16 @@
 					}
 
 
-					particleData[boundaryN][particleID].moveAnimation = false
-					particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
-					particleData[boundaryN][particleID].moveAnimationTo = boundaryData[boundaryN]['center']
-					particleData[boundaryN][particleID].moveAnimationFrame = 0
-					particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
+
 					
 
 					// init part
 					if(updateCsvPosState.counter===1){
+					particleData[boundaryN][particleID].moveAnimation = false
+					particleData[boundaryN][particleID].moveAnimationFrame = 1
+					particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
+					particleData[boundaryN][particleID].moveAnimationTo = boundaryData[boundaryN]['center']
+					particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
 					options.x = particleData[boundaryN][particleID].x
 					options.y = particleData[boundaryN][particleID].y
 					options.pointcolor = 'hsla(' + particleData[boundaryN][particleID].color + ',1)'
@@ -3897,7 +3899,7 @@
 					options.radius = 0
 					options.strokewidth = 2
 					addCircle(graphN, 'particleCircle@' + particleID, options)
-					particleID = particleID + 1
+					//particleID = particleID + 1
 					}
 				}
 				updateCsvPosState.counter += 1;
@@ -4606,52 +4608,58 @@
 		returnToCLFactor = 1 - fractionOfDurationToReachCL
 
 		function moveParticles(ofBoundary) {
-			var graphN = 'simpleCaseGraphG';
+			const graphN = 'simpleCaseGraphG';
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
-				if (partDB[particleIndex].moveAnimation) {
-					moveFrom = partDB[particleIndex].moveAnimationFrom
-					moveTo = partDB[particleIndex].moveAnimationTo
-					moveTime = partDB[particleIndex].moveAnimationTime
-					particleData[ofBoundary][particleIndex].moveAnimationFrame = particleData[ofBoundary][particleIndex].moveAnimationFrame + 1
-					partDB[particleIndex].x = 0//linearValue(0, moveTime, moveFrom[0], moveTo[0], particleData[ofBoundary][particleIndex].moveAnimationFrame)
-					partDB[particleIndex].y = 0//linearValue(0, moveTime, moveFrom[1], moveTo[1], particleData[ofBoundary][particleIndex].moveAnimationFrame)
-
-					if (particleData[ofBoundary][particleIndex].moveAnimationFrame >= moveTime) {
-						particleData[ofBoundary][particleIndex].moveAnimation = false
-						particleData[ofBoundary][particleIndex].moveAnimationFrame = 0
-					}
-				}
-			// 	else if (partDB[particleIndex].visitingCentralLocation) {
-			// 		partDB[particleIndex].visitingCLFrame = partDB[particleIndex].visitingCLFrame + 1
-			// 		if (partDB[particleIndex].visitingCLFrame < visitCLAndReturnDuration*fractionOfDurationToReachCL) {
-			// 			partDB[particleIndex].x = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[0], boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrame)
-			// 			partDB[particleIndex].y = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[1], boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrame)
-			// 		}
-			// 		else if(partDB[particleIndex].visitingCLFrame > visitCLAndReturnDuration*returnToCLFactor) {
-			// 			partDB[particleIndex].x = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrom[0], partDB[particleIndex].visitingCLFrame)
-			// 			partDB[particleIndex].y = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrom[1], partDB[particleIndex].visitingCLFrame)
-			// 		}
-
-			// 		if (partDB[particleIndex].visitingCLFrame >= visitCLAndReturnDuration) {
-			// 			partDB[particleIndex].visitingCentralLocation = false
-			// 			partDB[particleIndex].visitingCLFrame = 0
-			// 		}
+				// partDB[particleIndex].x = 0//linearValue(0, moveTime, moveFrom[0], moveTo[0], particleData[ofBoundary][particleIndex].moveAnimationFrame)
+				// partDB[particleIndex].y = 0
+				particleData[ofBoundary][particleIndex].moveAnimationFrame = particleData[ofBoundary][particleIndex].moveAnimationFrame + 1
+				// if (partDB[particleIndex].moveAnimation) {
+					// 	moveFrom = partDB[particleIndex].moveAnimationFrom
+					// 	moveTo = partDB[particleIndex].moveAnimationTo
+					// 	moveTime = partDB[particleIndex].moveAnimationTime
+					// 	particleData[ofBoundary][particleIndex].moveAnimationFrame = particleData[ofBoundary][particleIndex].moveAnimationFrame + 1
+					// 	partDB[particleIndex].x = 0//linearValue(0, moveTime, moveFrom[0], moveTo[0], particleData[ofBoundary][particleIndex].moveAnimationFrame)
+					// 	partDB[particleIndex].y = 0//linearValue(0, moveTime, moveFrom[1], moveTo[1], particleData[ofBoundary][particleIndex].moveAnimationFrame)
 					
-			// 	}
-				else {
-					// read new position
-					partDB[particleIndex].x = 0//partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
-					partDB[particleIndex].y = 0//partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
+				// 	if (particleData[ofBoundary][particleIndex].moveAnimationFrame >= moveTime) {
+					// 		particleData[ofBoundary][particleIndex].moveAnimation = false
+					// 		particleData[ofBoundary][particleIndex].moveAnimationFrame = 0
+					// 	}
+					// }
+				}
+			const timestep = particleData[ofBoundary][1].moveAnimationFrame;
+			readCsv(timestep,graphN,ofBoundary);
+				// 		// 	else if (partDB[particleIndex].visitingCentralLocation) {
+	// 		// 		partDB[particleIndex].visitingCLFrame = partDB[particleIndex].visitingCLFrame + 1
+	// 		// 		if (partDB[particleIndex].visitingCLFrame < visitCLAndReturnDuration*fractionOfDurationToReachCL) {
+	// 		// 			partDB[particleIndex].x = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[0], boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrame)
+	// 		// 			partDB[particleIndex].y = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[1], boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrame)
+	// 		// 		}
+	// 		// 		else if(partDB[particleIndex].visitingCLFrame > visitCLAndReturnDuration*returnToCLFactor) {
+	// 		// 			partDB[particleIndex].x = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrom[0], partDB[particleIndex].visitingCLFrame)
+	// 		// 			partDB[particleIndex].y = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrom[1], partDB[particleIndex].visitingCLFrame)
+	// 		// 		}
 
-					if (ofBoundary == 'simpleQuarantineB') {
-						boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC*3, 0.07)
-					}
-					else {
-						boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
-					}
-		}
-	}
+	// 		// 		if (partDB[particleIndex].visitingCLFrame >= visitCLAndReturnDuration) {
+	// 		// 			partDB[particleIndex].visitingCentralLocation = false
+	// 		// 			partDB[particleIndex].visitingCLFrame = 0
+	// 		// 		}
+					
+	// 		// 	}
+	// 			else {
+	// 				// read new position
+	// 				partDB[particleIndex].x = 0//partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
+	// 				partDB[particleIndex].y = 0//partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
+
+	// 				if (ofBoundary == 'simpleQuarantineB') {
+	// 					boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC*3, 0.07)
+	// 				}
+	// 				else {
+	// 					boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
+	// 				}
+	// 	}
+	// }
 					
 
 			// 		// A SocialDistancingRepulsiveForce
