@@ -3804,6 +3804,12 @@
 		randomSmallJerk = 0.001
 
 		function updateCsvPosState(boundaryN,graphN,statuses,pos_x,pos_y){
+				// Check to see if the counter has been initialized
+				if ( typeof updateCsvPosState.counter == 'undefined' ) {
+					// It has not... perform the initialization
+					updateCsvPosState.counter = 1; 
+				}
+
 				var totalparticles = statuses.length
 
 				for (particleIndex = 0; particleIndex < statuses.length; particleIndex++) {
@@ -3877,6 +3883,7 @@
 					
 
 					// init part
+					if(updateCsvPosState.counter===1){
 					options.x = particleData[boundaryN][particleID].x
 					options.y = particleData[boundaryN][particleID].y
 					options.pointcolor = 'hsla(' + particleData[boundaryN][particleID].color + ',1)'
@@ -3891,7 +3898,9 @@
 					options.strokewidth = 2
 					addCircle(graphN, 'particleCircle@' + particleID, options)
 					particleID = particleID + 1
+					}
 				}
+				updateCsvPosState.counter += 1;
 				}
 
 					
@@ -4034,9 +4043,8 @@
 
 			addParticlesToBoundary('simpleCaseGraphG', 'simpleCaseGraphB', simulationParameters.numberOfParticles)
 
-			createVicinityDB('simpleCaseGraphB')
-
-			prepInteractionData('simpleCaseGraphB')
+			//createVicinityDB('simpleCaseGraphB')
+			//prepInteractionData('simpleCaseGraphB')
 			
 		}
 
@@ -4696,7 +4704,7 @@
 			// 				partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimit/pspeed
 			// 				partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimit/pspeed
 			// 			}
-
+	
 			// 			modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
 			// 			if (modAcc > accLimit) {
 			// 				partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
@@ -4713,7 +4721,7 @@
 			// 		particleData[ofBoundary][particleIndex].visitingCLFrame = 0
 			// 		particleData[ofBoundary][particleIndex].visitingCLFrom = [particleData[ofBoundary][particleIndex].x, particleData[ofBoundary][particleIndex].y]
 			// 	}	
-			// }	
+			// }
 		}
 
 		function animateParticles(ofBoundary) {
