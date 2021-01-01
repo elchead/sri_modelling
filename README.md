@@ -24,5 +24,9 @@ And before merging, we need to change things
 Please be aware that with the current configuration, cmake needs to be executed after each newly added file.
 Also, C++ 20 is configured, so use GCC 10 or set lower in cmake config!
 
+## Browser visualization
+1. Start a node.js http server in the csv directory:
+   ```http-server --cors```
+2. Open website and refresh with `Ctrl+F5`
 # Acknowledgement
 The JSON parser was taken from https://github.com/amir-s/jute

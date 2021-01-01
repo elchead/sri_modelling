@@ -4629,6 +4629,7 @@
 					// }
 				}
 			const timestep = particleData[ofBoundary][1].moveAnimationFrame;
+			//updatePoint(boundaryData[ofBoundary]['graph'], 'particle@' + vicinityParticle, options)
 			readCsv(timestep,graphN,ofBoundary);
 				// 		// 	else if (partDB[particleIndex].visitingCentralLocation) {
 	// 		// 		partDB[particleIndex].visitingCLFrame = partDB[particleIndex].visitingCLFrame + 1
@@ -4999,14 +5000,16 @@
 		function handleCalculationPlaying() {
 			if (currentSim == 'simpleCase') {
 				moveParticles('simpleCaseGraphB')
-				if (timecount % timeStepsPerDay == 0) {
-					prepInteractionData('simpleCaseGraphB')
-				}
-				if (timecount % timeStepsPerDay == 1) {
-					updatePlotGraph()
-					interactions('simpleCaseGraphB')
-					dayCount = dayCount + 1
-				}
+				updatePlotGraph()
+				interactions('simpleCaseGraphB')
+				// if (timecount % timeStepsPerDay == 0) {
+				// 	prepInteractionData('simpleCaseGraphB')
+				// }
+				// if (timecount % timeStepsPerDay == 1) {
+				// 	updatePlotGraph()
+				// 	interactions('simpleCaseGraphB')
+				// 	dayCount = dayCount + 1
+				// }
 			}
 			
 			else if (currentSim == 'simpleCase&Q') {
