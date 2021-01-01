@@ -1,10 +1,10 @@
 {
-    "population_size" : 40,
+    "population_size" : 5,
     "nbr_timesteps" : 100,
     "dt_days" : 0.5,
     "infection_duration_days": 10,
-    "dimension_x" : 5.0,
-    "dimension_y" : 3.0,
+    "dimension_x" : 1.0,
+    "dimension_y" : 1.0,
     "moving_speed" : 0.1,
     "infection_probability_day" : 0.5,
     "infection_radius" : 0.5
