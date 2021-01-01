@@ -5154,9 +5154,10 @@
 		}
 
 		function playCalculationLoop(event) {
-			loopinterval2 = setInterval(frame, calculationFrameInterval);
+			loopinterval2 = setInterval(frame, calculationFrameInterval*15);  // TODO dirty slow down
 			function frame() {
 				timecount = timecount + 1
+				if(timecount >= 100){ return;}  // TODO dirty stop
 				if (playing) {
 					handleCalculationPlaying()
 				}
