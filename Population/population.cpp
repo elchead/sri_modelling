@@ -26,13 +26,14 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
 
 void Population::startSimulation()
 {
+    if (std::filesystem::is_directory("CSV") || !std::filesystem::exists("CSV")) std::filesystem::create_directory("CSV"); 
     // auto csv = CSV("data.csv");
     for (size_t i = 1; i < config_.nbr_timesteps + 1; ++i)
     {
         std::cout << "Output: "
                   << i << std::endl;
         nextTimestep();
-        std::ofstream writer("CSV/data_" + std::to_string(i) + ".csv");
+        std::ofstream writer("./CSV/data_" + std::to_string(i) + ".csv");
         writer << "state,pos_x,pos_y\n";
         for (const auto& person : persons_)
             writer << person;
