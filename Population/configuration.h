@@ -5,7 +5,7 @@ struct BoxDimension
 {
     BoxDimension() = default;
     BoxDimension(double x_dim, double y_dim) : x(x_dim), y(y_dim) {}
-    bool isInside(const Position &position) { return abs(x)*0.95 > position.x && abs(y)*0.95 > position.y; };
+    bool isInside(const Position &position) { return abs(x)*0.95 > abs(position.x) && abs(y)*0.95 > abs(position.y); };
     double x, y;
 };
 
