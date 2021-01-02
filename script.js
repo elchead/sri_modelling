@@ -4922,6 +4922,9 @@ function updateCsvPosState(boundaryN, graphN, statuses, pos_x, pos_y) {
     // It has not... perform the initialization
     updateCsvPosState.counter = 1;
   }
+  particleCounts[graphN]["susceptible"] = 0;
+  particleCounts[graphN]["infected"] = 0;
+  particleCounts[graphN]["removed"] = 0;
 
   var totalparticles = statuses.length;
 
@@ -4945,10 +4948,8 @@ function updateCsvPosState(boundaryN, graphN, statuses, pos_x, pos_y) {
     particleData[boundaryN][particleID].ax = 0;
     particleData[boundaryN][particleID].ay = 0;
 
-    particleData[boundaryN][particleID].x =
-      bdexclusionSX + pos_x[particleID - 1] * bdexclusionRX; ////bdexclusionSX + (Math.random())
-    particleData[boundaryN][particleID].y =
-      bdexclusionSY + pos_y[particleID - 1] * bdexclusionRY;
+    particleData[boundaryN][particleID].x = pos_x[particleID - 1]; ////bdexclusionSX * bdexclusionRX+ bdexclusionSX + (Math.random())
+    particleData[boundaryN][particleID].y = pos_y[particleID - 1]; //bdexclusionSY + * bdexclusionRY
     var state_str = "";
     switch (statuses[particleID - 1]) {
       case 0:
@@ -4963,6 +4964,8 @@ function updateCsvPosState(boundaryN, graphN, statuses, pos_x, pos_y) {
         break;
       case 2:
         state_str = "removed";
+        particleCounts[graphN]["removed"] =
+          particleCounts[graphN]["removed"] + 1;
         break;
     }
     particleData[boundaryN][particleID].state = state_str;
