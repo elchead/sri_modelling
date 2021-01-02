@@ -10,10 +10,12 @@ double Random::get_double(double min, double max) const
 
 Population::Population(Configuration config) : random_(), config_(config), S_(config.population_size), I_(config.population_size), R_(config.population_size)
 {
+    const auto max_x = config_.dimensions.x;
+    const auto max_y = config_.dimensions.y; 
     for (size_t i = 0; i < config.population_size; ++i)
     {
-        double rnd_x = config_.dimensions.x * random_.get_double();
-        double rnd_y = config_.dimensions.y * random_.get_double();
+        double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
+        double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
         const auto pos = Position(rnd_x, rnd_y);
         persons_.emplace_back(pos);
     }
