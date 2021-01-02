@@ -10,8 +10,8 @@ double Random::get_double(double min, double max) const
 
 Population::Population(Configuration config) : random_(), config_(config), S_(config.population_size), I_(config.population_size), R_(config.population_size)
 {
-    const auto max_x = config_.dimensions.x;
-    const auto max_y = config_.dimensions.y; 
+    const auto max_x = config_.dimensions.x*0.95;
+    const auto max_y = config_.dimensions.y*0.95; 
     for (size_t i = 0; i < config.population_size; ++i)
     {
         double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
