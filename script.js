@@ -5039,7 +5039,7 @@ function readCsv(timestep, graphN, boundaryN) {
     $.ajax({
       type: "GET",
       crossDomain: true,
-      url: `http://127.0.0.1:8080/data_${timestep}.csv`,
+      url: `http://localhost:8080/data_${timestep}.csv`,
 
       dataType: "text",
 
@@ -6638,6 +6638,27 @@ function playpauseSim(event) {
     playing = true;
     document.getElementById("playbutton").value = "PAUSE";
   }
+}
+
+function startSim(event) {
+  const config = {
+    population_size: 100,
+    nbr_timesteps: 100,
+    dt_days: 0.5,
+    infection_duration_days: 10,
+    dimension_x: 1.0,
+    dimension_y: 1.0,
+    moving_speed: 0.1,
+    infection_probability_day: 0.5,
+    infection_radius: 0.5,
+  };
+  const str = JSON.stringify(config);
+  fetch("http://localhost:3000/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: str,
+  });
+  console.log("Clicked start sim");
 }
 
 function resetSim(event) {

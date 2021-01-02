@@ -9,6 +9,8 @@
   "author": "adrian",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "ecstatic": "^4.1.4",
     "express": "^4.17.1"
   }
 }

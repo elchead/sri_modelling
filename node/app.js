@@ -1,17 +1,32 @@
+const path = require("path");
+const fs = require("fs");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3000;
+var bodyParser = require("body-parser");
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Simulation-Endpoint listening at http://localhost:${port}`);
+});
+
+app.post("/start", (req, res) => {
+  const filepath = path.join(__dirname + "/../build/InfectionModelling");
+  var config = JSON.stringify(req.body);
+  console.log(config);
+  fs.writeFileSync(path.join(__dirname + "/../config.json"), config);
+  execute(filepath);
+  res.send("Simulation started..");
 });
 
 var exec = require("child_process").execFile;
-// exec.cw = __dirname;
 /**
  * Function to execute exe
  * @param {string} fileName The name of the executable file to run.
@@ -28,7 +43,20 @@ function execute(fileName, params, path) {
   });
   return promise;
 }
+////////////////////////////////
+// File server for CSV
+const ecstatic = require("ecstatic");
+const http = require("http");
 
-const path = require("path");
-const filepath = path.join(__dirname + "/../build/InfectionModelling");
-execute(filepath);
+const app2 = express();
+app2.use(cors());
+app2.use(
+  ecstatic({
+    root: `${__dirname}/CSV`,
+    showdir: true,
+  })
+);
+const fileport = 8080;
+http.createServer(app2).listen(fileport);
+
+console.log(`File server listening at http://localhost:${fileport}`);

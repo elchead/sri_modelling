@@ -52,6 +52,9 @@
         "complex": "cpp",
         "concepts": "cpp",
         "cstring": "cpp",
-        "map": "cpp"
-    }
+        "map": "cpp",
+        "codecvt": "cpp",
+        "iomanip": "cpp"
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

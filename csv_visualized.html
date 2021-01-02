@@ -230,7 +230,7 @@
 					</div>
 					<div id="play-Info-QuarantineHSpacer1" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
 					<div id="resetButtonH" style="width: 15%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden;">
-						<input id='resetbutton' onclick="resetSim(event)" value='RESET' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,0%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
+						<input id='resetbutton' onclick="startSim(event)" value='START' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,0%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
 					</div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:4%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
 					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: auto;"><div style="display: table-cell; vertical-align: middle; text-align:left; height: 100%; width: 100%;">Please watch the <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer; color: hsla(197, 100%, 70%, 1);" target="_blank">3b1b video</a> to understand what is presented here. <br/> Parameters values here differ from the video and might give different results. <br/> Please zoom in/out of simulation/graph if it doesn't fit into your screen.</div></div>
@@ -272,6 +272,20 @@
 			
 			<!-- <div id="testGH" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div> -->
 		</div>
+
+<form action="http://localhost:3000/start" method="POST">
+ <input type="number", name="population_size" value=100>
+ <input type="number" name="nbr_timesteps" value=100>
+<input type="number" name="dt_days" value=0.5>
+<input type="number" name="infection_duration_days" value=10>
+<input type="number" name="dimension_x" value=1>
+<input type="number" name="dimension_y" value=1>
+<input type="number" name="moving_speed" value=0.1>
+<input type="number" name="infection_probability_day" value=0.5>
+<input type="number" name="infection_radius" value=0.5>
+ <input type="submit" value="Submit">
+
+</form>
 
 <script src='script.js'></script>	
 
