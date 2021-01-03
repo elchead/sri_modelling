@@ -1,3 +1,6 @@
+const address = "http://localhost";
+const csv_port = "8080";
+
 function infodisplay(infodata) {
   document.getElementById("infoH").innerHTML = infodata;
 }
@@ -5039,7 +5042,7 @@ function readCsv(timestep, graphN, boundaryN) {
     $.ajax({
       type: "GET",
       crossDomain: true,
-      url: `http://localhost:8080/data_${timestep}.csv`,
+      url: address + ":" + csv_port + `/data_${timestep}.csv`, // `http://localhost:8080/data_${timestep}.csv`,
 
       dataType: "text",
 
@@ -6468,6 +6471,7 @@ function handleCalculationPlaying() {
     moveParticles("simpleCaseGraphB");
     updatePlotGraph();
     interactions("simpleCaseGraphB");
+    dayCount = dayCount + 1;
     // if (timecount % timeStepsPerDay == 0) {
     //   prepInteractionData("simpleCaseGraphB");
     // }
