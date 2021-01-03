@@ -4906,7 +4906,7 @@ function boundaryRepulsiveForce(
 }
 
 particleData = {};
-particleID = 1;
+// particleID = 1;
 
 initialParticleV = 0.2;
 speedLimit = 0.1;
@@ -6640,6 +6640,7 @@ function playpauseSim(event) {
   }
 }
 
+// TODO read current config
 function startSim(event) {
   const config = {
     population_size: 100,
