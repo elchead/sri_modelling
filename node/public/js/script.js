@@ -1,10 +1,6 @@
 const address = "http://localhost";
 const csv_port = "8080";
 
-function infodisplay(infodata) {
-  document.getElementById("infoH").innerHTML = infodata;
-}
-
 function setDarkMode() {
   if (darkmode) {
     darkmode = false;

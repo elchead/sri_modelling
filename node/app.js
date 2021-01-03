@@ -5,12 +5,16 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 var bodyParser = require("body-parser");
+const include_path = __dirname + "/js";
+// Express Middleware for serving static files
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(include_path));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.sendFile(path.resolve("index.html"));
 });
 
 app.listen(port, () => {
