@@ -36,127 +36,13 @@
 				border: 0px solid black;
 			}
 
+			h1 {
+				color: white;
+				text-align: center;
+
+			}
+
 		</style>
-
-		<!-- <style id="sliderStyleH" type="text/css">
-			a {
-				cursor: pointer;
-			}
-
-			.standardSlider {
-				-webkit-appearance: none;
-				border-radius: 5px;
-				outline: none;
-				-webkit-transition: .2s;
-				transition: opacity .2s;
-			}
-			.standardSlider::-webkit-slider-thumb {
-				-webkit-appearance: none;
-				appearance: none;
-				width: 10px;
-				height: 10px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
-			.standardSlider::-moz-slider-thumb {
-				-webkit-appearance: none;
-				appearance: none;
-				width: 10px;
-				height: 10px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
-
-			/*.timesliderClass {
-				-webkit-appearance: none;
-				border-radius: 5px;
-				outline: none;
-				opacity: 0.7;
-				-webkit-transition: .2s;
-				transition: opacity .2s;
-				cursor: pointer;
-			}*/
-			/*.timesliderClass::-webkit-slider-thumb {
-				-webkit-appearance: none;
-				appearance: none;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
-
-			.timesliderClass::-moz-slider-thumb {
-				appearance: none;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}*/
-
-
-			/*#parametersListH::-webkit-scrollbar {
-				width: 1%;
-			}
-
-			#parametersListH::-webkit-scrollbar-track {
-				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-				border-radius: 30px;
-			}
-
-			#parametersListH::-webkit-scrollbar-thumb {
-				background-color: hsla(190, 100%, 50%, 1);
-				border-radius: 50px;
-				/*outline: 1px solid slategrey;*/
-			}*/
-
-			body::-webkit-scrollbar {
-				width: 5px;
-			}
-
-			body::-webkit-scrollbar-track {
-				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-				border-radius: 30px;
-			}
-
-			body::-webkit-scrollbar-thumb {
-				background-color: black;
-				border-radius: 50px;
-				/*outline: 1px solid slategrey;*/
-			}
-
-			#fileinputBack::focus {
-				outline: none;
-			}
-
-			#savebutton::focus {
-				outline: none;
-			}
-
-			#savebuttonH::focus {
-				outline: none;
-			}
-
-			input:invalid {
-				box-shadow:0 0 0px hsla(0,0%,0%,0);
-			}
-
-		
-		</style> -->
-		
-		<!-- <script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-103589215-2', 'auto');
-		  ga('send', 'pageview');
-
-		</script> -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
@@ -184,108 +70,30 @@
 		</script>
   
 	</head>
-	<body style='margin:0px; display: block; background: hsla(0, 0%, 0%, 1);'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; background: hsla(0, 0%, 92%, 0);'>
-			<div id="mainVSpacer1" style='margin:0px;width:4%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-			</div>
-			<div id="MainBlock1" style='margin:0px;width:0%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				<div id="mainB1HSpacer1" style='margin:0px;width:100%; height:0%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-			</div>
-			<div id="mainVSpacer2" style='margin:0px;width:0%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-			</div>
-			<div id="MainBlock2" style='margin:0px;width:92%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 1%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="titleH" style='margin:0px;width:100%; height: 7%; position: relative; z-index: 1;display: inline-block; '>
-					<div id="title" style='margin:0px;width:100%; height: 100%; position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
-							<tr>
-								<td colspan="8" id='maintitle' style="text-align: center; vertical-align: bottom; font-size: 2.4vmax; color: white;">
-									<font style="font-weight: bold;">Epidemic Simulation </font><br/><font style="font-family: Source Sans Pro; font-size: 1.4vmax; vertical-align: bottom;">An interactive inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(197, 100%, 50%, 1);">"Simulating an Epidemic" video</font></a>.<br/><font style="font-size: 1.2vmax">For other interactives, visit <a href="https://prajwalsouza.github.io/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 70%, 1);">prajwalsouza.github.io</font></a></font></font>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; pointer-events: none; '>
-				</div>
-				<div id="caseTypeNameH" style='margin:0px;width:100%; height:2%; position: relative; z-index: 1;display: inline-block; font-size: 1.3vmax; text-align: left; color: hsla(190, 0%, 70%, 1); font-family: Source Sans Pro;'>
-					<span id="caseTypeName">Simple Case</span>
-				</div>
-				<br/>
-				<div id="upperLayer" style='margin:0px;width:100%; height: 35%;overflow: hidden;position: absolute; z-index: 200; display: inline-block; background: none; box-shadow: inset 0px 0px 20px 5px hsla(32, 0%,0%, 1); border: 0px solid black; pointer-events: none;'>
-					 <!-- <span id="R_0" style="font-size: 1vmax; color: white; font-family: Source Sans Pro;">R : 0.1</span>
-					 <span id="R_0-Info" style="font-size: 0.7vmax; color: grey; font-family: Source Sans Pro; float: right; top: 80%;">Reproductive Number Calculation here is a little different from the 3B1B video. <br/>Here, its Average(Number of individuals infected by one infected individual)</span> -->
-				</div>
-				<div id="simpleCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="centralLocationCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="communitiesCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="simpleCaseGraph&QH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
-				<div id="centralLocationQuarantineCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
-				<div id="communitiesQuarantineCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: relative; z-index: 1; display: inline-block;"></div>
-				<div id="play-Info-QuarantineH" style='margin:0px;width:100%; height:3.5%; position: relative; z-index: 1;display: inline-block; color: hsla(190, 0%, 70%, 1); font-family: Source Sans Pro;'>
-					<div id="playButtonH" style="width: 15%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden;">
-						<input id='playbutton' onclick="playpauseSim(event)" value='PAUSE' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,100%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
-					</div>
-					<div id="play-Info-QuarantineHSpacer1" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
-					<div id="resetButtonH" style="width: 15%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden;">
-						<input id='resetbutton' onclick="startSim(event)" value='START' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,0%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
-					</div>
-					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:4%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
-					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: auto;"><div style="display: table-cell; vertical-align: middle; text-align:left; height: 100%; width: 100%;">Please watch the <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer; color: hsla(197, 100%, 70%, 1);" target="_blank">3b1b video</a> to understand what is presented here. <br/> Parameters values here differ from the video and might give different results. <br/> Please zoom in/out of simulation/graph if it doesn't fit into your screen.</div></div>
-					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
-					<div id="quarantineH" style="width: 30%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden; text-align: center;">
-						<input onchange="handleQClick(event)" type="checkbox" id="quarantinecheck" name="quarantinecheck" value="quarantinecheck"  ><label id="quarantinecheckLabel" for="quarantinecheck" style="color: var(--themeinfected); font-size: 1.5vmax; font-weight: bold;">QUARANTINE</label>
-					</div>
-				</div>
-				<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="caseTypeChooseH" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="simpleCaseoptionH" style='margin:0px;width:23%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
-						<input onclick="handleConfigChange(event)" id='simpleCaseoption' value='SIMPLE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(40,100%,50%,1); border: 0.5px solid hsla(40,100%,50%,1);" readonly></input>
-					</div>
-					<div id="centralLocationoptionH" style='margin:0px;width:42%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
-						<input onclick="handleConfigChange(event)" id='centralLocationoption' value='CENTRAL LOCATION' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle;  background: hsla(280,100%,70%,0); border: 0.5px solid hsla(0, 0%, 60%, 1);" readonly></input>
-					</div>
-					<div id="communitiesoptionH" style='margin:0px;width:33%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
-						<input onclick="handleConfigChange(event)" id='communitiesoption' value='COMMUNITIES' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; outline: none; vertical-align: middle; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background: hsla(280,100%,50%,0); border: 0.5px solid hsla(0, 0%, 70%, 1);" readonly></input>
-					</div>
-				</div>
-				<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:1%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="plotGraphH" style="width: 100%; height: 20%; overflow: hidden;position: relative; z-index: 1; display: inline-block;"></div>
-				<div id="mainB2HSpacer5" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="parametersH" style='margin:0px;width:100%; height:19%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
-					<div id="gradfillParameters" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 0%, 1) 16%, hsla(0, 100%, 100%, 0) 22%, hsla(0, 0%, 0%, 0) 95%,hsla(0, 100%, 0%, 1) 100%,hsla(0, 100%, 100%, 0) 100%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-					<div id="parametersTitleText" style='margin:0px;width:100%; height:17%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.8vmax; color: hsla(190, 0%, 70%, 1);'>PARAMETERS<font id="additionalPText" style="color: white; font-size: 1.1vmax; float: right;"> Some parameters are specific to certain cases.</font></div>
-					<div id="parametersListH" style='margin:0px;width:100%; height:83%;overflow-y: auto;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.7vmax; color: white;'>
-						<div id="parameterSpacer1" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block'></div>
-					</div>
-				</div>
-				<div id="mainB2HSpacer6" style='margin:0px;width:100%; height:0%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-			</div>
-			<div id="mainVSpacer3" style='margin:0px;width:4%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-			</div>
-			
-			<!-- <div id="testGH" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div> -->
-		</div>
-
-<form action="/start" method="POST">
- <input type="number", name="population_size" value=100>
- <input type="number" name="nbr_timesteps" value=100>
-<input type="number" name="dt_days" value=0.5>
-<input type="number" name="infection_duration_days" value=10>
-<input type="number" name="dimension_x" value=1>
-<input type="number" name="dimension_y" value=1>
-<input type="number" name="moving_speed" value=0.1>
-<input type="number" name="infection_probability_day" value=0.5>
-<input type="number" name="infection_radius" value=0.5>
+	<body style='margin:0px; display: block; background: hsla(0, 0%, 0%, 1); color:white;'>
+			<h1>Epidemic Simulation</h1>
+	<h2>created by Adrian Stobbe</h2>
+	<h3>This work is inspired by <a href="https://prajwalsouza.github.io/Experiments/Epidemic-Simulation.html">Prajwalsouza JS Simulation</a></h3>
+				<div id="simpleCaseGraphH" style="width: 100%; height: 70%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
+				<p style="position:fixed; bottom: 10px;">Simulation parameters</p>
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<form action="/" method="POST", style="position: fixed; bottom: 50px; align-items: center;", id="SimParams",target="dummyframe">
+ <label>Population size: <input type="number", name="population_size" value=100></label>
+<label>Number of timesteps: <input type="number" name="nbr_timesteps" value=100></label>
+<label>Dt days: <input type="text" name="dt_days" value=0.5></label>
+<label>Infaction duraction in days: <input type="number" name="infection_duration_days" value=10></label>
+<label>Dimension x: <input type="text" name="dimension_x" value=1></label>
+<label>Dimension y:<input type="text" name="dimension_y" value=1></label>
+<label>Moving speed: <input type="text" name="moving_speed" value=0.1></label>
+<label>Infection probability: <input type="text" name="infection_probability_day" value=0.5></label>
+<label>Infection radius: <input type="text" name="infection_radius" value=0.5></label>
  <input type="submit" value="Submit">
 
 </form>
+			<!-- <div id="testGH" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div> -->
+		</div>
+
+
 
 <!-- A library/code I developed for most simulations. "plots.js" -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/prajwalsouza.github.io/JS/plots.js"></script>
