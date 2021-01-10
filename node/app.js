@@ -21,13 +21,13 @@ app.listen(port, () => {
   console.log(`Simulation-Endpoint listening at http://localhost:${port}`);
 });
 
-app.post("/start", (req, res) => {
+app.post("/", (req, res) => {
   const filepath = path.join(__dirname + "/../build/InfectionModelling");
   var config = JSON.stringify(req.body);
   console.log(config);
   fs.writeFileSync(path.join(__dirname + "/../config.json"), config);
   execute(filepath);
-  res.send("Simulation started..");
+  // res.send("Simulation started..");
 });
 
 var exec = require("child_process").execFile;
