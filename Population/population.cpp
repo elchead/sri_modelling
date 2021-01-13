@@ -16,10 +16,10 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
     {
         double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
         double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
-        const auto pos = Position(rnd_x, rnd_y);
+        const auto pos = Eigen::Vector2d(rnd_x, rnd_y);
         persons_.emplace_back(pos);
     }
-    auto p = Person(Position(0,0));
+    auto p = Person(Eigen::Vector2d(0,0));
     p.set_state(State::Infectious);
     persons_.push_back(p);
 }
@@ -54,8 +54,8 @@ auto getGroup(State state,std::vector<Person>& persons){
     //return persons | std::ranges::views::filter([state](const Person& a) { return a.state == state; });
 }
 
-double getDistSquare(const Position& a,const Position& b){
-    return pow(a.x - b.x, 2) + pow(a.y - b.y, 2);
+double getDistSquare(const Eigen::Vector2d& a,const Eigen::Vector2d& b){
+    return (a-b).array().square().sum(); //return pow(a.x - b.x, 2) + pow(a.y - b.y, 2);
 }
 
 void Population::updateStatuses() {
@@ -80,22 +80,40 @@ void Population::updateStatuses() {
    }
 }
 
+Eigen::Vector2d random_unit_vector(double rnd){
+    return Eigen::Vector2d(cos(2 * M_PI * rnd), sin(2 * M_PI * rnd));
+}
+
 void Population::move() {
     for (auto& person : persons_)
     {
-        bool valid = false;
-        double rnd_x, rnd_y;
-        while (!valid)
-        {
-            const auto max_x = config_.moving_speed * config_.dimensions.x;
-            const auto max_y = config_.moving_speed * config_.dimensions.y;
-            rnd_x = random_.get_double(-max_x, max_x);
-            rnd_y = random_.get_double(-max_y,max_y);
-            const auto new_pos = person.move(rnd_x, rnd_y, false);
-            valid = config_.dimensions.isInside(new_pos);
+        auto total_force = Eigen::Vector2d();
+        // set random movement
+        const auto& pos = person.get_position();
+        if(config_.wander_step_size != 0){
+            const auto vec = random_unit_vector(random_.get_double());
+            const auto gravity_well = pos +config_.wander_step_size * vec;
+            const auto to_well = gravity_well - pos;
+            const auto dist = to_well.norm();
+            if (dist != 0)
+                total_force += config_.gravity_strength * to_well / (pow(dist, 3));
         }
-        person.move(rnd_x, rnd_y, true);
-        //std::cout << person << std::endl;
+        const auto vel = total_force * config_.dt;
+        const auto new_pos = pos + vel * config_.dt;
+        person.move(new_pos[0], new_pos[1]);
+        // bool valid = false;
+        // double rnd_x, rnd_y;
+        // while (!valid)
+        // {
+        //     const auto max_x = config_.moving_speed * config_.dimensions.x;
+        //     const auto max_y = config_.moving_speed * config_.dimensions.y;
+        //     rnd_x = random_.get_double(-max_x, max_x);
+        //     rnd_y = random_.get_double(-max_y,max_y);
+        //     const auto new_pos = person.move(rnd_x, rnd_y, false);
+        //     valid = config_.dimensions.isInside(new_pos);
+        // }
+        // person.move(rnd_x, rnd_y, true);
+        // //std::cout << person << std::endl;
     }
 }
 

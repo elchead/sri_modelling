@@ -9,6 +9,7 @@
 #include "csv-export.h"
 #include <fstream>
 #include <filesystem>
+#include <math.h>
 //#include <ranges>
 
 class Random

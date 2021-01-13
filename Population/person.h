@@ -3,6 +3,7 @@
 #include "enums.h"
 #include <string>
 #include <iostream>
+#include <Eigen/Core>
 struct Position
 {
     Position(double x, double y) : x(x), y(y){};
@@ -13,9 +14,9 @@ struct Position
 class Person
 {
 public:
-    Person(Position p, double step_size = 1.);
-    Position move(double dx, double dy, bool change_position = true);
-    Position get_position() const;
+    Person(Eigen::Vector2d p, double step_size = 1.);
+    void move(double dx, double dy, bool change_position = true);
+    const Eigen::Vector2d& get_position() const;
     std::string get_state_string() const;
     void set_state(State s) { state = s; }
     State state;
@@ -23,6 +24,6 @@ public:
     double infection_start_time;
 
 private:
-    Position position_;
+    Eigen::Vector2d position_;
     double step_size_;
 };
