@@ -1,9 +1,11 @@
 const path = require("path");
 const fs = require("fs");
+const fsp = require("fs").promises;
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
+var sleep = require("sleep");
 var bodyParser = require("body-parser");
 const include_path = __dirname + "/js";
 // Express Middleware for serving static files
@@ -17,6 +19,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("index.html"));
 });
 
+app.get("/delete", (req, res) => {
+  const directory = path.join(__dirname, "CSV");
+  fsp
+    .rmdir(directory, { recursive: true })
+    .then(() => console.log("deleted!!!"));
+});
 app.listen(port, () => {
   console.log(`Simulation-Endpoint listening at http://localhost:${port}`);
 });
@@ -58,6 +66,7 @@ app2.use(
   ecstatic({
     root: `${__dirname}/CSV`,
     showdir: true,
+    cache: 0,
   })
 );
 const fileport = 8080;
