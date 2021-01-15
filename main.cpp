@@ -17,12 +17,11 @@ Configuration readConfig(const char* filepath="../config.json"){
     config.dt = v["dt_days"].as_double();
     config.infection_duration = v["infection_duration_days"].as_double();
     config.dimensions = BoxDimension(v["dimension_x"].as_double(), v["dimension_x"].as_double());
-    config.moving_speed = v["moving_speed"].as_double();
+    config.max_speed = v["moving_speed"].as_double();
     config.infection_probability = v["infection_probability_day"].as_double();
     config.infection_radius = v["infection_radius"].as_double();
     return config;
     }
-
 int main(int argc, char **argv)
 {
     std::cout << "Welcome to the infection modeller! " << std::endl;

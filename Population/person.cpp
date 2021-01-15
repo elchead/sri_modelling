@@ -6,13 +6,13 @@ std::ostream& operator<<(std::ostream& os, const Person& p){
     return os;
 }
 
-Person::Person(Eigen::Vector2d p, double step_size) : position_(p), step_size_(step_size), state(State::Susceptible)
+Person::Person(Eigen::Vector2d p, double step_size) : position(p), velocity(), step_size_(step_size), state(State::Susceptible)
 {
 }
 
 const Eigen::Vector2d& Person::get_position() const
 {
-    return position_;
+    return position;
 }
 
 std::string Person::get_state_string() const
@@ -35,8 +35,8 @@ void Person::move(double dx, double dy, bool change_position)
     // Position new_pos(position_.x + dx, position_.y + dy);
     if (change_position)
     {
-        position_[0] = dx;
-        position_[1] = dy;
+        position[0] = dx;
+        position[1] = dy;
     }
 }
 

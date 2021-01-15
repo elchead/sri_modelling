@@ -19,10 +19,10 @@ struct Configuration
     double dt;
     double infection_duration;
     BoxDimension dimensions;
-    double moving_speed;
     double infection_probability;
     double infection_radius;
     // person movement
+    double max_speed;
     double wander_step_size = 1;
     double wander_step_duration = 1;
     double social_distance_factor = 1;

@@ -22,8 +22,9 @@ public:
     State state;
     friend std::ostream& operator<<(std::ostream& os, const Person& p);
     double infection_start_time;
+    Eigen::Vector2d position;
+    Eigen::Vector2d velocity;
 
 private:
-    Eigen::Vector2d position_;
     double step_size_;
 };

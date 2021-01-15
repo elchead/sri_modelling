@@ -17,9 +17,9 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
         double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
         double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
         const auto pos = Eigen::Vector2d(rnd_x, rnd_y);
-        persons_.emplace_back(pos);
+        persons_.emplace_back(pos,config_.dt);
     }
-    auto p = Person(Eigen::Vector2d(0,0));
+    auto p = Person(Eigen::Vector2d(0.1,0.1),config_.dt);
     p.set_state(State::Infectious);
     persons_.push_back(p);
 }
@@ -98,15 +98,49 @@ void Population::move() {
             if (dist != 0)
                 total_force += config_.gravity_strength * to_well / (pow(dist, 3));
         }
-        const auto vel = total_force * config_.dt;
-        const auto new_pos = pos + vel * config_.dt;
+        std::cout << "Gravity" << total_force[0] << "\t" << total_force[1] << std::endl;
+
+        // Avoid walls
+        auto wall_force = Eigen::Vector2d();
+        for (size_t i = 0; i < 2; i++){
+            const auto to_lower = pos[i] - config_.dimensions.dl_bound[i];
+            const auto to_upper = config_.dimensions.ur_bound[i] - pos[i];
+
+            // Bounce
+            if(to_lower<0) {
+                std::cout << "toLower" << to_lower << std::endl;
+                person.velocity[i] = abs(person.velocity[i]);
+                person.position[i] = config_.dimensions.dl_bound[i];
+                std:: cout << person.position[0] << " " << person.position[1] << std::endl;
+                std::cout << "outside, set" << i << " " << person.position[i] << std::endl;
+            }
+            if(to_upper<0) {
+                person.velocity[i] = -abs(person.velocity[i]);
+                person.position[i] = config_.dimensions.ur_bound[i];
+            }
+            if(to_lower != 0)
+                wall_force[i] += std::max((-1 / config_.wall_buffer + 1 / to_lower),0.);
+            if(to_upper != 0)
+                wall_force[i] -= std::max((-1 / config_.wall_buffer + 1 / to_upper),0.);
+        }
+        
+        std::cout << "Wall force" << wall_force[0] << "\t" << wall_force[1] << std::endl;
+        total_force += wall_force;
+
+        // Apply force
+        person.velocity += total_force * config_.dt;
+
+        // Limit speed
+        const auto speed = person.velocity.norm();
+        person.velocity *= config_.max_speed / speed;
+        const auto new_pos = pos + person.velocity * config_.dt;
         person.move(new_pos[0], new_pos[1]);
         // bool valid = false;
         // double rnd_x, rnd_y;
         // while (!valid)
         // {
-        //     const auto max_x = config_.moving_speed * config_.dimensions.x;
-        //     const auto max_y = config_.moving_speed * config_.dimensions.y;
+        //     const auto max_x = config_.max_speed * config_.dimensions.x;
+        //     const auto max_y = config_.max_speed * config_.dimensions.y;
         //     rnd_x = random_.get_double(-max_x, max_x);
         //     rnd_y = random_.get_double(-max_y,max_y);
         //     const auto new_pos = person.move(rnd_x, rnd_y, false);
