@@ -1,4 +1,5 @@
 /build
+/build-db
 /node/node_modules
 /node/CSV
 settings.json

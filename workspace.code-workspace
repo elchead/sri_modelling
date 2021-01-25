@@ -59,7 +59,10 @@
 			"complex": "cpp",
 			"concepts": "cpp",
 			"cstring": "cpp",
-			"map": "cpp"
+			"map": "cpp",
+			"codecvt": "cpp",
+			"iomanip": "cpp",
+			"filesystem": "cpp"
 		}
 	}
 }

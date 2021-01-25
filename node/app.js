@@ -5,7 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-var sleep = require("sleep");
 var bodyParser = require("body-parser");
 const include_path = __dirname + "/js";
 // Express Middleware for serving static files
@@ -35,7 +34,7 @@ app.post("/", (req, res) => {
   console.log(config);
   fs.writeFileSync(path.join(__dirname + "/../config.json"), config);
   execute(filepath);
-  // res.send("Simulation started..");
+  // res.send(sSimulation started..");
 });
 
 var exec = require("child_process").execFile;
