@@ -14,8 +14,8 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
     const auto max_y = config_.dimensions.y*0.95; 
     for (size_t i = 0; i < config.population_size; ++i)
     {
-        double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
-        double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
+        double rnd_x = config_.dimensions.x * random_.get_double(0, max_x);
+        double rnd_y = config_.dimensions.y * random_.get_double(0, max_y);
         const auto pos = Eigen::Vector2d(rnd_x, rnd_y);
         persons_.emplace_back(pos,config_.dt);
     }
@@ -89,6 +89,7 @@ void Population::move() {
     {
         auto total_force = Eigen::Vector2d();
         // set random movement
+        const auto randomSmallJerk = 0.001;
         const auto& pos = person.get_position();
         if(config_.wander_step_size != 0){
             const auto vec = random_unit_vector(random_.get_double());
@@ -98,14 +99,14 @@ void Population::move() {
             if (dist != 0)
                 total_force += config_.gravity_strength * to_well / (pow(dist, 3));
         }
-        std::cout << "Gravity" << total_force[0] << "\t" << total_force[1] << std::endl;
+        // std::cout << "Gravity" << total_force[0] << "\t" << total_force[1] << std::endl;
 
         // Avoid walls
         auto wall_force = Eigen::Vector2d();
         for (size_t i = 0; i < 2; i++){
             const auto to_lower = pos[i] - config_.dimensions.dl_bound[i];
             const auto to_upper = config_.dimensions.ur_bound[i] - pos[i];
-
+        
             // Bounce
             if(to_lower<0) {
                 std::cout << "toLower" << to_lower << std::endl;
@@ -132,22 +133,10 @@ void Population::move() {
 
         // Limit speed
         const auto speed = person.velocity.norm();
-        person.velocity *= config_.max_speed / speed;
+        if(speed > config_.max_speed) person.velocity =  person.velocity* config_.max_speed/speed;
+        std::cout << "Gravity" << person.velocity.norm() << person.velocity[0] << "\t" << person.velocity[1] << std::endl;
         const auto new_pos = pos + person.velocity * config_.dt;
         person.move(new_pos[0], new_pos[1]);
-        // bool valid = false;
-        // double rnd_x, rnd_y;
-        // while (!valid)
-        // {
-        //     const auto max_x = config_.max_speed * config_.dimensions.x;
-        //     const auto max_y = config_.max_speed * config_.dimensions.y;
-        //     rnd_x = random_.get_double(-max_x, max_x);
-        //     rnd_y = random_.get_double(-max_y,max_y);
-        //     const auto new_pos = person.move(rnd_x, rnd_y, false);
-        //     valid = config_.dimensions.isInside(new_pos);
-        // }
-        // person.move(rnd_x, rnd_y, true);
-        // //std::cout << person << std::endl;
     }
 }
 
