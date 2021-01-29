@@ -125,7 +125,7 @@ void Population::move() {
                 wall_force[i] -= std::max((-1 / config_.wall_buffer + 1 / to_upper),0.);
         }
         
-        std::cout << "Wall force" << wall_force[0] << "\t" << wall_force[1] << std::endl;
+        // std::cout << "Wall force" << wall_force[0] << "\t" << wall_force[1] << std::endl;
         total_force += wall_force;
 
         // Apply force
@@ -134,7 +134,7 @@ void Population::move() {
         // Limit speed
         const auto speed = person.velocity.norm();
         if(speed > config_.max_speed) person.velocity =  person.velocity* config_.max_speed/speed;
-        std::cout << "Gravity" << person.velocity.norm() << person.velocity[0] << "\t" << person.velocity[1] << std::endl;
+        //std::cout << "Gravity" << person.velocity.norm() << person.velocity[0] << "\t" << person.velocity[1] << std::endl;
         const auto new_pos = pos + person.velocity * config_.dt;
         person.move(new_pos[0], new_pos[1]);
     }
