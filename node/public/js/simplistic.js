@@ -864,11 +864,13 @@ function updateCsvPosState(boundaryN, graphN, statuses, pos_x, pos_y) {
 }
 
 function readCsv(timestep, graphN, boundaryN) {
+  const pop_id = 1;
   $(document).ready(function () {
     $.ajax({
       type: "GET",
       crossDomain: true,
-      url: address + ":" + csv_port + `/data_${timestep}.csv`,
+      url:
+        address + ":" + csv_port + `/Population${pop_id}/data_${timestep}.csv`,
 
       dataType: "text",
 
