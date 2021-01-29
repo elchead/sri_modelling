@@ -5,7 +5,7 @@
 struct BoxDimension
 {
     BoxDimension() = default;
-    BoxDimension(double x_dim, double y_dim) : x(x_dim), y(y_dim), dl_bound({0,0}), ur_bound({x_dim,y_dim}) {}
+    BoxDimension(double x_dim, double y_dim) : x(x_dim), y(y_dim), dl_bound({-x_dim,-y_dim}), ur_bound({x_dim,y_dim}) {}
     bool isInside(const Position &position) { return abs(x)*0.95 > abs(position.x) && abs(y)*0.95 > abs(position.y); };
     double x, y;
     std::array<double,2> dl_bound, ur_bound;

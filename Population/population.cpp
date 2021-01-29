@@ -14,8 +14,8 @@ Population::Population(Configuration config) : random_(), config_(config), S_(co
     const auto max_y = config_.dimensions.y*0.95; 
     for (size_t i = 0; i < config.population_size; ++i)
     {
-        double rnd_x = config_.dimensions.x * random_.get_double(0, max_x);
-        double rnd_y = config_.dimensions.y * random_.get_double(0, max_y);
+        double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
+        double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
         const auto pos = Eigen::Vector2d(rnd_x, rnd_y);
         persons_.emplace_back(pos,config_.dt);
     }
