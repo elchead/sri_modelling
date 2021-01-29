@@ -21,7 +21,7 @@ public:
 class Population
 {
 public:
-    Population(Configuration config);
+    Population(Configuration config,size_t id=0);
     void nextTimestep();    // outputs SIR data
     void startSimulation(); // timestep loop
     const std::vector<Person>& get_persons() const { return persons_; }
@@ -34,6 +34,7 @@ private:
     Random random_;
     Configuration config_;
     double time_;
+    size_t id_;
     Eigen::VectorXf S_;
     Eigen::VectorXf I_;
     Eigen::VectorXf R_;

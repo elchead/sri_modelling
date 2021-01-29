@@ -32,7 +32,8 @@ int main(int argc, char **argv)
     // }
     auto sim = Simulation();
     auto config = readConfig();
-    sim.addPopulation(Population(config));
+    sim.addPopulation(config);
+    sim.addPopulation(config);
     sim.start();
     return 0;
 }

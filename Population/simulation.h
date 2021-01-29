@@ -13,8 +13,8 @@ class Simulation
 {
 public:
     Simulation() = default;
-    void addPopulation(Population&& population){
-        populations_.push_back(population);
+    void addPopulation(Configuration config){
+        populations_.emplace_back(config,++size_populations_);
     }
     void start(){
         for(auto& population: populations_){
@@ -24,5 +24,6 @@ public:
 
 private:
     std::vector<Population> populations_;
+    size_t size_populations_ = 0;
     double time_;
 };
