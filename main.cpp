@@ -3,6 +3,7 @@
 #include <fstream>
 #include "jute.h"
 #include <string>
+#include "simulation.h"
 
 Configuration readConfig(const char* filepath="../config.json"){
     std::ifstream in("../config.json",std::ios::out);
@@ -29,8 +30,9 @@ int main(int argc, char **argv)
     // for (int i = 0; i < argc; ++i){
     //     std::cout << argv[i] << "\n";
     // }
+    auto sim = Simulation();
     auto config = readConfig();
-    auto p = Population(config);
-    p.startSimulation();
+    sim.addPopulation(Population(config));
+    sim.start();
     return 0;
 }
