@@ -35,17 +35,21 @@ void Population::startSimulation()
     // auto csv = CSV("data.csv");
 
     std::cout << "Storing csv ouput in subfolder of: " << std::filesystem::current_path() <<std::endl;
-    for (size_t i = 1; i < config_.nbr_timesteps + 1; ++i)
+    for (; nbr_timesteps_ < config_.nbr_timesteps; ++nbr_timesteps_)
     {
         std::cout << "Output: "
-                  << i << std::endl;
+                  << nbr_timesteps_ << std::endl;
         nextTimestep();
-        std::ofstream writer("./"+csv_folder_+"/data_" + std::to_string(i) + ".csv");
+        writeData();
+    }
+}
+
+// write state information of persona to CSV
+void Population::writeData() const {
+    std::ofstream writer("./" + csv_folder_ + "/data_" + std::to_string(nbr_timesteps_) + ".csv");
         writer << "state,pos_x,pos_y\n";
         for (const auto& person : persons_)
             writer << person;
-        //csv.exporter(persons_);
-    }
 }
 
 auto getGroup(State state,std::vector<Person>& persons){

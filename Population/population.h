@@ -29,11 +29,13 @@ public:
 private:
     void updateStatuses();
     void move();
+    void writeData() const;
 
     std::vector<Person> persons_;
     Random random_;
     Configuration config_;
     double time_;
+    size_t nbr_timesteps_ = 0;
     size_t id_;
     std::string csv_folder_;
     // Eigen::VectorXf S_;
