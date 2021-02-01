@@ -8,7 +8,7 @@ double Random::get_double(double min, double max) const
     return unif_gen(gen);
 }
 
-Population::Population(Configuration config,size_t id) : id_(id),random_(), config_(config), S_(config.population_size), I_(config.population_size), R_(config.population_size)
+Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("CSV/Population" + std::to_string(id_)), random_(), config_(config)
 {
     const auto max_x = config_.dimensions.x*0.95;
     const auto max_y = config_.dimensions.y*0.95; 
@@ -22,14 +22,16 @@ Population::Population(Configuration config,size_t id) : id_(id),random_(), conf
     auto p = Person(Eigen::Vector2d(0.1,0.1),config_.dt);
     p.set_state(State::Infectious);
     persons_.push_back(p);
+
+    // create csv output folder
+    if (std::filesystem::is_directory("CSV") || !std::filesystem::exists("CSV")) std::filesystem::create_directory("CSV");
+    if (std::filesystem::is_directory(csv_folder_) || !std::filesystem::exists(csv_folder_))
+        std::filesystem::create_directory(csv_folder_);
 }
 
 void Population::startSimulation()
 {
-    if (std::filesystem::is_directory("CSV") || !std::filesystem::exists("CSV")) std::filesystem::create_directory("CSV");
-    const std::string pop_path = "CSV/Population" + std::to_string(id_);
-    if (std::filesystem::is_directory(pop_path) || !std::filesystem::exists(pop_path))
-        std::filesystem::create_directory(pop_path);
+
     // auto csv = CSV("data.csv");
 
     std::cout << "Storing csv ouput in subfolder of: " << std::filesystem::current_path() <<std::endl;
@@ -38,7 +40,7 @@ void Population::startSimulation()
         std::cout << "Output: "
                   << i << std::endl;
         nextTimestep();
-        std::ofstream writer("./"+pop_path+"/data_" + std::to_string(i) + ".csv");
+        std::ofstream writer("./"+csv_folder_+"/data_" + std::to_string(i) + ".csv");
         writer << "state,pos_x,pos_y\n";
         for (const auto& person : persons_)
             writer << person;

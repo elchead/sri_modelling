@@ -35,9 +35,10 @@ private:
     Configuration config_;
     double time_;
     size_t id_;
-    Eigen::VectorXf S_;
-    Eigen::VectorXf I_;
-    Eigen::VectorXf R_;
+    std::string csv_folder_;
+    // Eigen::VectorXf S_;
+    // Eigen::VectorXf I_;
+    // Eigen::VectorXf R_;
 };
 
 std::ostream &operator<<(std::ostream &output, const Person &p);
