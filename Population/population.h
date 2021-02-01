@@ -2,7 +2,7 @@
 #include <vector>
 #include "person.h"
 #include "configuration.h"
-#include <random>
+#include "random.h"
 #include <chrono>
 #include <Eigen/Core>
 #include <cmath>
@@ -12,11 +12,7 @@
 #include <math.h>
 //#include <ranges>
 
-class Random
-{
-public:
-    double get_double(double min=0,double max=1) const;
-};
+
 
 class Population
 {

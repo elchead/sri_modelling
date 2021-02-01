@@ -1,13 +1,5 @@
 #include "population.h"
 
-double Random::get_double(double min, double max) const
-{
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> unif_gen(min, max);
-    return unif_gen(gen);
-}
-
 Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("CSV/Population" + std::to_string(id_)), random_(), config_(config)
 {
     const auto max_x = config_.dimensions.x*0.95;
@@ -31,9 +23,6 @@ Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("C
 
 void Population::startSimulation()
 {
-
-    // auto csv = CSV("data.csv");
-
     std::cout << "Storing csv ouput in subfolder of: " << std::filesystem::current_path() <<std::endl;
     for (; nbr_timesteps_ < config_.nbr_timesteps; ++nbr_timesteps_)
     {
