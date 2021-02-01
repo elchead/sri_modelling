@@ -29,7 +29,6 @@ void Population::startSimulation()
         std::cout << "Output: "
                   << nbr_timesteps_ << std::endl;
         nextTimestep();
-        writeData();
     }
 }
 
@@ -144,4 +143,5 @@ void Population::nextTimestep()
     updateStatuses();
     move();
     time_ += config_.dt;
+    writeData();
 }

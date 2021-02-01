@@ -21,6 +21,16 @@ public:
     void nextTimestep();    // outputs SIR data
     void startSimulation(); // timestep loop
     const std::vector<Person>& get_persons() const { return persons_; }
+    Person removePerson() {
+        Person last = persons_.back();
+        persons_.pop_back();
+        return last;
+    }
+    void addPerson(const Person& person) {
+        persons_.push_back(person);
+    }
+    size_t id() const { return id_; }
+    size_t size() const { return persons_.size(); }
 
 private:
     void updateStatuses();

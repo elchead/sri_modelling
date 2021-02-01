@@ -8,6 +8,7 @@
 #include <fstream>
 #include <filesystem>
 #include <math.h>
+#include "random.h"
 
 class Simulation
 {
@@ -19,13 +20,29 @@ public:
         populations_.emplace_back(config, ++size_populations_);
     }
     void start(){
-        // while(nbr_timesteps_ < end_nbr_timesteps_){
-        //     for(auto& population: populations_){
-        //     population.nextTimestep();
-        // } 
-        // }
-        for(auto& population: populations_){
-            population.startSimulation();
+        std::vector<Person> moving_persons;
+        while (nbr_timesteps_ < end_nbr_timesteps_)
+        {
+            for(std::vector<Population>::iterator population = populations_.begin(); 
+        population != populations_.end();
+        population++)
+            {
+                    std::cout << "Output: "
+                        << nbr_timesteps_ << std::endl;
+                    if(!moving_persons.empty()){
+                        population->addPerson(moving_persons.back());
+                        moving_persons.pop_back();
+                        std::cout << "Adding person to " << population->id() << std::endl;
+                    }
+
+                    if (random_.get_double() < travel_probability_)
+                    {
+                        // remove person
+                        moving_persons.push_back(population->removePerson());
+                    }
+                    population->nextTimestep();
+                    nbr_timesteps_++;
+            }
         }
     }
 
@@ -36,4 +53,5 @@ private:
     double time_;
     size_t nbr_timesteps_ = 0;
     size_t end_nbr_timesteps_ = 0;
+    Random random_;
 };
