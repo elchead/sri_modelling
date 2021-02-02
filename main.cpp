@@ -14,8 +14,10 @@ int main(int argc, char **argv)
     // }
     auto sim = Simulation();
     auto config = readConfig();
-    sim.addPopulation(config);
-    sim.addPopulation(config);
+    size_t nbr_populations = 1000;
+    for (int i = 0; i < nbr_populations; i++){
+        sim.addPopulation(config);
+    }
     sim.start();
     return 0;
 }

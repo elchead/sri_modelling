@@ -27,12 +27,12 @@ public:
         population != populations_.end();
         population++)
             {
-                    std::cout << "Output: "
-                        << nbr_timesteps_ << std::endl;
+                    // std::cout << "Output: "
+                    //     << nbr_timesteps_ << std::endl;
                     if(!moving_persons.empty()){
                         population->addPerson(moving_persons.back());
                         moving_persons.pop_back();
-                        std::cout << "Adding person to " << population->id() << std::endl;
+                        // std::cout << "Adding person to " << population->id() << std::endl;
                     }
 
                     if (random_.get_double() < travel_probability_)

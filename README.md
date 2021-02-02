@@ -107,7 +107,7 @@ However, the executable or the web server can also be locally run.
 
 1. In build folder, run cmake
    ```
-   cmake -DCMAKE_CXX_FLAGS=-pg
+   cmake -DCMAKE_CXX_FLAGS=-pg ..
    ```
 2. Build executable
    ```
