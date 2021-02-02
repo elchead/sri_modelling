@@ -103,6 +103,25 @@ However, the executable or the web server can also be locally run.
    npm start
    ```
 
+### Profiling
+
+1. In build folder, run cmake
+   ```
+   cmake -DCMAKE_CXX_FLAGS=-pg
+   ```
+2. Build executable
+   ```
+   cmake --build .
+   ```
+3. Run executable
+   ```
+   ./InfectionModelling
+   ```
+4. Write analysis to `report.txt` file
+   ```
+   gprof InfectionModelling gmon.out > report.txt
+   ```
+
 <!-- Please be aware that with the current configuration, cmake needs to be executed after each newly added file. -->
 
 # Acknowledgement
