@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "person.h"
 #include "configuration.h"
+#include "person.h"
 #include "random.h"
 #include <chrono>
 #include <Eigen/Core>

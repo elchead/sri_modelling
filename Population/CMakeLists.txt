@@ -1,5 +1,4 @@
 file(GLOB codefiles_SRC
-    "*.h"
     "*.cpp"
 )
 
