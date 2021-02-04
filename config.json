@@ -1,5 +1,5 @@
 {
-  "population_size": "10000",
+  "population_size": "50000",
   "nbr_timesteps": "10",
   "dt_days": "0.01",
   "infection_duration_days": "10",

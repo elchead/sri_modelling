@@ -70,7 +70,7 @@ This increased the performance by a few magnitudes and made the runtime very sma
 
 ## 2. Run Gprof
 
-In the next run, the population size was increased to **10'000** to get insights into the scaling.
+In the next run, the population size was increased to **10'000** to get insights into the scaling. It is expected that this scaling is most expensive (compared to simulating multiple populations), since the number of comparisons to check the distances within the population scales quadratically.
 
 ```
 {
@@ -143,3 +143,9 @@ As expected, this roughly cut the number of calls to the expensive `getDistSquar
 Further improvement requires avoiding this call:
 
 ` 0.21 3.03 20645922/20645922 Eigen::DenseBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::sum() const [6]]`
+
+<!-- Therefore, it is not expected that an optimization of memory locality would bring significant gains (since the whole cost of `updateStatuses()` is within the Eigen calculation). -->
+
+At optimization level `-O3` another very significant performance gain was seen. The runtime went down to `0.21s` compared to `2.15s` on `-O0`. However, it still remains that the cost of `updateStatuses()` makes up 95% of the total cost.
+
+## 3. Run Gprof
