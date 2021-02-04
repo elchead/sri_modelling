@@ -90,28 +90,16 @@ A look at the call graph revealed that `updateStatuses()` is a bottleneck.
 Herein, `getDistSquare()` is most expensive because it calculates the distance between any two persons within the population.
 
 ```
-               0.00   15.86     200/200         Simulation::start() [2]
-[3]     99.7    0.00   15.86     200         Population::nextTimestep() [3]
-                0.90    9.36     200/200         Population::updateStatuses() [4]
-                0.20    5.00     200/200         Population::move() [8]
-                0.02    0.38     200/200         Population::writeData() const [55]
+                0.00    5.38      10/10          Simulation::start() [2]
+[3]    100.0    0.00    5.38      10         Population::nextTimestep() [3]
+                0.52    4.48      10/10          Population::updateStatuses() [4]
+                0.00    0.35      10/10          Population::move() [24]
+                0.00    0.02      10/10          Population::writeData() const [125]
 -----------------------------------------------
-                0.90    9.36     200/200         Population::nextTimestep() [3]
-[4]     64.5    0.90    9.36     200         Population::updateStatuses() [4]
-                0.35    8.14 43725582/43725582     getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
-                0.01    0.29     400/400         getGroup(State, std::vector<Person, std::allocator<Person> >&) [77]
-                                0.35    8.14 43725582/43725582     Population::updateStatuses() [4]
-[5]     53.4    0.35    8.14 43725582         getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
-                0.47    6.09 43725582/43725582     Eigen::DenseBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::sum() const [6]
-                0.15    0.60 43725582/43725582     Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, Eigen::internal::traits<Eigen::Matrix<double, 2, 1, 0, 2, 1> >::Scalar>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const Eigen::MatrixBase<Eigen::Matrix<double, 2, 1, 0, 2, 1> >::operator-<Eigen::Matrix<double, 2, 1, 0, 2, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, 2, 1, 0, 2, 1> > const&) const [37]
-                0.06    0.45 43725582/43725582     Eigen::ArrayBase<Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> >::square() const [51]
-                0.09    0.24 43725582/43725582     Eigen::MatrixBase<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> >::array() const [66]
------------------------------------------------
-                0.47    6.09 43725582/43725582     getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
-[6]     41.2    0.47    6.09 43725582         Eigen::DenseBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::sum() const [6]
-                0.30    5.77 43725582/43725582     double Eigen::DenseBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::redux<Eigen::internal::scalar_sum_op<double, double> >(Eigen::internal::scalar_sum_op<double, double> const&) const [7]
-                0.02    0.00 43725582/174902328     Eigen::EigenBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::derived() const [218]
-                0.00    0.00 43725582/51726386     Eigen::internal::scalar_sum_op<double, double>::scalar_sum_op() [476]
+                0.52    4.48      10/10          Population::nextTimestep() [3]
+[4]     92.9    0.52    4.48      10         Population::updateStatuses() [4]
+                0.14    3.92 20645922/20645922     getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
+                0.01    0.19      20/20          getGroup(State, std::vector<Person, std::allocator<Person> >&) [41]
 ```
 
 ```
@@ -132,22 +120,26 @@ Each sample counts as 0.01 seconds.
   1.19      3.95     0.19 260121875     0.00     0.00  Eigen::PlainObjectBase<Eigen::Matrix<double, 2, 1, 0, 2, 1> >::rows() const)
 ```
 
-One obvious significant improvement was to change the evaluation order in the if condition, such that the cheap condition is checked first:
+One obvious significant improvement was to change the evaluation order in the if condition, such that the distance evaluation is avoided if the probability condition fails. Secondly, the `pow()` operation was replaces by a multiplication:
 
-`if (random_.get_double() < config_.infection_probability && dist < pow(config_.infection_radius,2)) `
+`if (random_.get_double() < config_.infection_probability && getDistSquare(s_person->get_position(), i_person->get_position()) <config_.infection_radius*config_.infection_radius) `
+
+This lead to a perfomance boost by 2x:
 
 ```
-                0.00    5.38      10/10          Simulation::start() [2]
-[3]    100.0    0.00    5.38      10         Population::nextTimestep() [3]
-                0.52    4.48      10/10          Population::updateStatuses() [4]
-                0.00    0.35      10/10          Population::move() [24]
-                0.00    0.02      10/10          Population::writeData() const [125]
+                0.00    2.15      10/10          Simulation::start() [2]
+[3]     98.6    0.00    2.15      10         Population::nextTimestep() [3]
+                0.22    1.67      10/10          Population::updateStatuses() [4]
+                0.03    0.21      10/10          Population::move() [14]
+                0.00    0.01      10/10          Population::writeData() const [131]
 -----------------------------------------------
-                0.52    4.48      10/10          Population::nextTimestep() [3]
-[4]     92.9    0.52    4.48      10         Population::updateStatuses() [4]
-                0.14    3.92 20645922/20645922     getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
-                0.01    0.19      20/20          getGroup(State, std::vector<Person, std::allocator<Person> >&) [41]
+                0.22    1.67      10/10          Population::nextTimestep() [3]
+[4]     86.9    0.22    1.67      10         Population::updateStatuses() [4]
+                0.08    1.33 10321512/10321512     getDistSquare(Eigen::Matrix<double, 2, 1, 0, 2, 1> const&, Eigen::Matrix<double, 2, 1, 0, 2, 1> const&) [5]
+                0.06    0.03 20782421/20782421     bool __gnu_cxx::operator!=<Person**, std::vector<Person*, std::allocator<Person*> > >(__gnu_cxx::__normal_iterator<Person**, std::vector<Person*, std::allocator<Person*> > > const&, __gnu_cxx::__normal_iterator<Person**, std::vector<Person*, std::allocator<Person*> > > const&) [38]]
 ```
 
 As expected, this roughly cut the number of calls to the expensive `getDistSquare()` function in half.
-This lead to a rough performance increase of about 30%.
+Further improvement requires avoiding this call:
+
+` 0.21 3.03 20645922/20645922 Eigen::DenseBase<Eigen::CwiseUnaryOp<Eigen::internal::scalar_square_op<double>, Eigen::ArrayWrapper<Eigen::CwiseBinaryOp<Eigen::internal::scalar_difference_op<double, double>, Eigen::Matrix<double, 2, 1, 0, 2, 1> const, Eigen::Matrix<double, 2, 1, 0, 2, 1> const> const> const> >::sum() const [6]]`
