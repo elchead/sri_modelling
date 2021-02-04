@@ -21,14 +21,14 @@ public:
     }
     void start(){
         std::vector<Person> moving_persons;
-        while (nbr_timesteps_ < end_nbr_timesteps_)
-        {
             for(std::vector<Population>::iterator population = populations_.begin(); 
         population != populations_.end();
         population++)
             {
-                    // std::cout << "Output: "
-                    //     << nbr_timesteps_ << std::endl;
+                for (auto nbr_timesteps = 0;nbr_timesteps < end_nbr_timesteps_;++nbr_timesteps)
+                {
+                    std::cout << "Output: "
+                        << nbr_timesteps << std::endl;
                     if(!moving_persons.empty()){
                         population->addPerson(moving_persons.back());
                         moving_persons.pop_back();
@@ -41,10 +41,9 @@ public:
                         moving_persons.push_back(population->removePerson());
                     }
                     population->nextTimestep();
-                    nbr_timesteps_++;
+                }
             }
         }
-    }
 
 private:
     std::vector<Population> populations_;
