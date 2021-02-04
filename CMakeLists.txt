@@ -9,7 +9,7 @@ add_executable(InfectionModelling main.cpp)
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set (CMAKE_CXX_FLAGS "-O1 -pg")
+set (CMAKE_CXX_FLAGS "-O0 -pg")
 
 # add the Population library
 add_subdirectory(Population)
