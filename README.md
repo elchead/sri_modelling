@@ -1,6 +1,6 @@
 # Advanced Programming Project: Infection Modelling
 
-This project implements a simple 2D simulation of the SRI model. It specifically uses the tools we learnt during the semester including **modern C++ concepts**, **Eigen library**, **cmake** and **gprof**.
+This project implements a simple 2D simulation of the SRI model. It specifically uses the tools we learnt during the semester including **modern C++ concepts**, **Eigen library**, **Unit tests with Catch2**, **cmake** and **gprof**.
 For convenience, a very simple **web interface** for visualizing and configuring the simulation is provided.
 
 To simplify the installation procedure and avoid potential local issues, a **Docker** container is also made available.
