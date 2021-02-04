@@ -15,6 +15,7 @@ class Person
 {
 public:
     Person(Eigen::Vector2d p, double step_size = 1.);
+    Person(double x, double y, double step_size = 1.);
     void move(double dx, double dy, bool change_position = true);
     const Eigen::Vector2d& get_position() const;
     std::string get_state_string() const;

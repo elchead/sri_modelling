@@ -10,6 +10,9 @@ Person::Person(Eigen::Vector2d p, double step_size) : position(p), velocity(), s
 {
 }
 
+Person::Person(double x, double y, double step_size) : position(x,y), velocity(), step_size_(step_size), state(State::Susceptible)
+{
+}
 const Eigen::Vector2d& Person::get_position() const
 {
     return position;

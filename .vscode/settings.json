@@ -57,7 +57,8 @@
         "iomanip": "cpp",
         "stop_token": "cpp",
         "thread": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

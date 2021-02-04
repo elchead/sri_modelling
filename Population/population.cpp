@@ -8,8 +8,8 @@ Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("C
     {
         double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
         double rnd_y = config_.dimensions.y * random_.get_double(-max_y, max_y);
-        const auto pos = Eigen::Vector2d(rnd_x, rnd_y);
-        persons_.emplace_back(pos,config_.dt);
+        const auto pos = Eigen::Vector2d();
+        persons_.emplace_back(rnd_x, rnd_y,config_.dt);
     }
     auto p = Person(Eigen::Vector2d(0.1,0.1),config_.dt);
     p.set_state(State::Infectious);

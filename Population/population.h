@@ -17,10 +17,12 @@
 class Population
 {
 public:
+    Population() = default;
     Population(Configuration config,size_t id=0);
     void nextTimestep();    // outputs SIR data
     void startSimulation(); // timestep loop
     const std::vector<Person>& get_persons() const { return persons_; }
+    std::vector<Person>& get_persons() { return persons_; }
     Person removePerson() {
         Person last = persons_.back();
         persons_.pop_back();
