@@ -63,7 +63,7 @@ void Population::updateStatuses() {
     for(auto* s_person: s_group){
        for(const auto* i_person: i_group){
            const auto dist = getDistSquare(s_person->get_position(), i_person->get_position());
-           if (dist < pow(config_.infection_radius,2) && random_.get_double() < config_.infection_probability) {
+           if (random_.get_double() < config_.infection_probability && dist < pow(config_.infection_radius,2)) {
                    s_person->set_state(State::Infectious);
                    s_person->infection_start_time = time_;
                }
