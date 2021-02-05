@@ -3,7 +3,7 @@
 Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("CSV/Population" + std::to_string(id_)), random_(), config_(config)
 {
     const auto max_x = config_.dimensions.x*0.95;
-    const auto max_y = config_.dimensions.y*0.95; 
+    const auto max_y = config_.dimensions.y*0.95;
     for (size_t i = 0; i < config.population_size; ++i)
     {
         double rnd_x = config_.dimensions.x * random_.get_double(-max_x, max_x);
@@ -11,9 +11,13 @@ Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("C
         const auto pos = Eigen::Vector2d();
         persons_.emplace_back(rnd_x, rnd_y,config_.dt);
     }
-    auto p = Person(Eigen::Vector2d(0.1,0.1),config_.dt);
-    p.set_state(State::Infectious);
-    persons_.push_back(p);
+    const auto nbr_initial_infected = config.initial_infection_proportion * config.population_size;
+    for (auto i = 0; i < nbr_initial_infected; ++i){
+        persons_[i].set_state(State::Infectious);
+    }
+    //     auto p = Person(Eigen::Vector2d(0.1, 0.1), config_.dt);
+    // p.set_state(State::Infectious);
+    // persons_.push_back(p);
 
     // create csv output folder
     if (std::filesystem::is_directory("CSV") || !std::filesystem::exists("CSV")) std::filesystem::create_directory("CSV");
@@ -24,10 +28,10 @@ Population::Population(Configuration config,size_t id) : id_(id), csv_folder_("C
 void Population::startSimulation()
 {
     std::cout << "Storing csv ouput in subfolder of: " << std::filesystem::current_path() <<std::endl;
-    for (; nbr_timesteps_ < config_.nbr_timesteps; ++nbr_timesteps_)
+    for (auto i = 0; i < config_.nbr_timesteps; ++i)
     {
         std::cout << "Output: "
-                  << nbr_timesteps_ << std::endl;
+                  << i << std::endl;
         nextTimestep();
     }
 }
@@ -139,8 +143,9 @@ void Population::move() {
 
 void Population::nextTimestep()
 {
+    writeData();
     updateStatuses();
     move();
     time_ += config_.dt;
-    writeData();
+    nbr_timesteps_++;
 }

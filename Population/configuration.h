@@ -23,6 +23,7 @@ struct Configuration
     BoxDimension dimensions;
     double infection_probability;
     double infection_radius;
+    double initial_infection_proportion = 0.1;
     // person movement
     double max_speed;
     double wander_step_size = 1;
@@ -48,5 +49,13 @@ inline Configuration readConfig(const char* filepath="../config.json"){
     config.max_speed = v["moving_speed"].as_double();
     config.infection_probability = v["infection_probability_day"].as_double();
     config.infection_radius = v["infection_radius"].as_double();
+    // ensure backwards compatibility
+    try {
+        if(v["initial_infection_proportion"].as_double() != 0.0)
+            config.initial_infection_proportion = v["initial_infection_proportion"].as_double(); 
+    }
+    catch(...) {
+
+    }
     return config;
     }
