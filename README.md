@@ -1,9 +1,15 @@
 # Advanced Programming Project: Infection Modelling
 
-This project implements a simple 2D simulation of the SRI model. It specifically uses the tools we learnt during the semester including **modern C++ concepts**, **Eigen library**, **Unit tests with Catch2**, **cmake** and **gprof**.
+### Description
+
+This project implements a simple 2D simulation of the SRI model. A population can be defined and it moves randomly in 2D space. According to parameters, such as infection probability and radius, the epidemic evolution is then simulated.
+
+### Learning goals
+
+The program specifically uses the tools we learnt during the semester including **modern C++ concepts**, **Eigen library**, **Unit tests with Catch2**, **cmake** and **gprof**.
 For convenience, a very simple **web interface** for visualizing and configuring the simulation is provided.
 
-To simplify the installation procedure and avoid potential local issues, a **Docker** container is also made available.
+## To simplify the installation procedure and avoid potential local issues, a **Docker** container is also made available.
 
 # Installation
 
@@ -59,6 +65,8 @@ However, the executable or the web server can also be locally run.
 ## Using Docker
 
 ### Browser visualization
+
+_It is currently only possible to visualize one population in the browser!_
 
 1. Run Docker container
    ```
