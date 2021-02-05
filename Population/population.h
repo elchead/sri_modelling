@@ -24,13 +24,19 @@ public:
     const std::vector<Person>& get_persons() const { return persons_; }
     std::vector<Person>& get_persons() { return persons_; }
     Person removePerson() {
-        Person last = persons_.back();
-        persons_.pop_back();
-        return last;
+        if(persons_.size() > 0)
+        {
+            Person last = persons_.back();
+            persons_.pop_back();
+            return last;
+        }
+        else
+            throw std::domain_error("Cannot remove from empty persons list");
     }
     void addPerson(const Person& person) {
         persons_.push_back(person);
     }
+    size_t get_nbr_infected() const;
     size_t id() const { return id_; }
     size_t size() const { return persons_.size(); }
 

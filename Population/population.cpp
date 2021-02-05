@@ -149,3 +149,11 @@ void Population::nextTimestep()
     time_ += config_.dt;
     nbr_timesteps_++;
 }
+
+size_t Population::get_nbr_infected() const {
+    size_t n = 0;
+    for(const auto & person : persons_)
+        if(person.state == State::Infectious)
+            n++;
+    return n;
+}

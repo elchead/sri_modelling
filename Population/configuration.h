@@ -9,23 +9,25 @@ struct BoxDimension
     BoxDimension() = default;
     BoxDimension(double x_dim, double y_dim) : x(x_dim), y(y_dim), dl_bound({-x_dim,-y_dim}), ur_bound({x_dim,y_dim}) {}
     bool isInside(const Position &position) { return abs(x)*0.95 > abs(position.x) && abs(y)*0.95 > abs(position.y); };
-    double x, y;
-    std::array<double,2> dl_bound, ur_bound;
+    double x = 1;
+    double y = 1;
+    std::array<double, 2> dl_bound = {-x, -y};
+    std::array<double, 2> ur_bound = {x,y};
 };
 
 struct Configuration
 {
     Configuration() = default;
     size_t population_size;
-    size_t nbr_timesteps;
-    double dt;
-    double infection_duration;
+    size_t nbr_timesteps = 1;
+    double dt = 1;
+    double infection_duration = 1;
     BoxDimension dimensions;
-    double infection_probability;
-    double infection_radius;
     double initial_infection_proportion = 0.1;
+    double infection_probability = 1;
+    double infection_radius = 1;
     // person movement
-    double max_speed;
+    double max_speed = 1;
     double wander_step_size = 1;
     double wander_step_duration = 1;
     double social_distance_factor = 1;
