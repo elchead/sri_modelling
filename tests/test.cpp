@@ -38,15 +38,25 @@ TEST_CASE( "Remove person", "[population]" ) {
     REQUIRE_THROWS_AS(pop.removePerson(), std::domain_error);
 }
 
-TEST_CASE( "Next timestep", "[population]" ) {
+TEST_CASE( "Constructor", "[population]" ) {
     auto config = Configuration();
     config.population_size = 2;
     config.infection_probability = 1;
     config.initial_infection_proportion = .5;
     config.infection_radius = 1;
     auto pop = Population(config);
-    REQUIRE(pop.get_persons().size() == 2);
-    REQUIRE(pop.get_nbr_infected() == 1);
+    REQUIRE(pop.get_nbr_infected() == config.initial_infection_proportion*config.population_size);
+    REQUIRE(pop.get_persons().size() == config.population_size);
+    REQUIRE(std::filesystem::is_directory("CSV") == true);
+}
+
+TEST_CASE( "Next timestep: Check status update", "[population]" ) {
+    auto config = Configuration();
+    config.population_size = 2;
+    config.infection_probability = 1;
+    config.initial_infection_proportion = .5;
+    config.infection_radius = 1;
+    auto pop = Population(config);
     pop.nextTimestep();
     REQUIRE(pop.get_nbr_infected() == 2);
 }
