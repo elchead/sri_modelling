@@ -55,7 +55,7 @@ TEST_CASE( "Next timestep: Check status update", "[population]" ) {
     config.population_size = 2;
     config.infection_probability = 1;
     config.initial_infection_proportion = .5;
-    config.infection_radius = 1;
+    config.infection_radius = 2;
     auto pop = Population(config);
     pop.nextTimestep();
     REQUIRE(pop.get_nbr_infected() == 2);
