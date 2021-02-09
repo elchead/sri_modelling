@@ -5,11 +5,11 @@ boundaryData = {};
 particleData = {};
 darkmode = true;
 
-// $("#SimParams").submit(function (e) {
-//   setTimeout(function () {
-//     location.reload(true);
-//   }, 2000);
-// });
+$("#SimParams").submit(function (e) {
+  setTimeout(function () {
+    location.reload(true);
+  }, 200);
+});
 
 function drawBoundary(graphN, boundaryN, boundaryRanges, boundaryProp) {
   boundaryData[boundaryN] = {};
