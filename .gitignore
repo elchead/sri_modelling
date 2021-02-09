@@ -4,4 +4,4 @@
 /node/CSV
 settings.json
 *.py
-.vscode/settings.json
+.vscode
