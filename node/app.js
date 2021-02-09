@@ -30,6 +30,10 @@ app.listen(port, () => {
 
 app.post("/", (req, res) => {
   const filepath = path.join(__dirname + "/../build/InfectionModelling");
+  // add legacy parameters
+  req.body.dt_days = 0.5;
+  req.body.dimension_x = 1;
+  req.body.dimension_y = 1;
   var config = JSON.stringify(req.body);
   console.log(config);
   fs.writeFileSync(path.join(__dirname + "/../config.json"), config);
